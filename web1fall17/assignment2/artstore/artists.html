@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Artists</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+	<meta charset="utf-8">
+	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="css/artstore.css">
+	
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Architects+Daughter" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+	
+		<!-- First Navbar -->
+		<div class="row">
+			<nav class="navbar navbar-inverse" role="navigation">
+			
+				<div class="container-fluid">
+					<span class="navbar-text" id="whitecolor">
+						Welcome to <b>Art Store</b>, <a href="#" id="whitecolor"><b>Login</b></a> or <a href="#" id="whitecolor"><b>Create new account</b></a>
+					</span>
+
+					<ul class="nav navbar-nav navbar-right">
+						<li><a id="whitecolor" href="#"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+						<li><a id="whitecolor" href="#"><span class="glyphicon glyphicon-gift"></span> Wish List</a></li>
+						<li><a id="whitecolor" href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</a></li>
+						<li><a id="whitecolor" href="#"><span class="glyphicon glyphicon-arrow-right"></span> Checkout</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	
+		<!-- Site Title and Search -->
+		<div class="row" id="title_padding">
+			<div class="col-md-9" id="store_font">
+				<div class="row">Art Store</div>
+			</div>
+			<div class="col-md-3" id="reduce_padding">
+				
+				<table>
+					<tr>
+						<td>
+							<form class="form" action="http://www.randyconnolly.com/tests/process.php" method="get">
+								<input type="search" class="form-control input-search" placeholder="Search" name="search">
+							</form>
+						</td>
+						<td>
+							<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+						</td>
+					</tr>
+				</table>
+				
+			</div>
+		</div>
+	
+		<!-- Second Navbar -->
+		<div class="row">
+			<div class="container" id="reduce_padding">
+				<nav class="navbar navbar-default">
+					<div class="container-fluid">
+						<ul class="nav navbar-nav">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="about.html">About Us</a></li>
+							<li><a href="work.html">Art Works</a></li>
+							<li class="active"><a href="artists.html">Artists</a></li>
+							
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#">Specials<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Special #1</a></li>
+									<li><a href="#">Special #2</a></li>
+									<li><a href="#">Special #3</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+		
+		<!-- Title/Warning -->
+		<div class="row">
+			<p class="artist_heading">This Week's Best-Selling Artists</p>
+			<div class="alert alert-warning" role="alert">Each week we show you who are our best-selling artists ...</div>
+		</div>
+		
+		<!-- Artist Row #1 -->
+		<div class="row">
+
+			<div class="col-md-2 artist_reduce_padding">
+				<div class="thumbnail artist_thumbnail_size">
+					<img src="images/artists/1.jpg" class="img-responsive"></img>
+					<div class="product_padding">
+						<text><a href="#" class="artist_name">Picasso</a></text>
+	
+						<div class="artist_button_padding">
+							<button type="button" class="btn btn-md btn-info">
+								<span class="glyphicon glyphicon-fire"></span>
+								<text> Sales </text>
+								<span class="badge">66</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-2 artist_reduce_padding">
+				<div class="thumbnail artist_thumbnail_size">
+					<img src="images/artists/99.jpg" class="img-responsive"></img>
+					<div class="product_padding">
+						<text><a href="#" class="artist_name">Raphael</a></text>
+	
+						<div class="artist_button_padding">
+							<button type="button" class="btn btn-md btn-info">
+								<span class="glyphicon glyphicon-fire"></span>
+								<text> Sales </text>
+								<span class="badge">56</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-2 artist_reduce_padding">
+				<div class="thumbnail artist_thumbnail_size">
+					<img src="images/artists/19.jpg" class="img-responsive"></img>
+					<div class="product_padding">
+						<text><a href="#" class="artist_name">Van Gogh</a></text>
+	
+						<div class="artist_button_padding">
+							<button type="button" class="btn btn-md btn-info">
+								<span class="glyphicon glyphicon-fire"></span>
+								<text> Sales </text>
+								<span class="badge">40</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-2 artist_reduce_padding">
+				<div class="thumbnail artist_thumbnail_size">
+					<img src="images/artists/99.jpg" class="img-responsive"></img>
+					<div class="product_padding">
+						<text><a href="#" class="artist_name">Boticelli</a></text>
+	
+						<div class="artist_button_padding">
+							<button type="button" class="btn btn-md btn-info">
+								<span class="glyphicon glyphicon-fire"></span>
+								<text> Sales </text>
+								<span class="badge">37</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-2 artist_reduce_padding">
+				<div class="thumbnail artist_thumbnail_size">
+					<img src="images/artists/29.jpg" class="img-responsive"></img>
+					<div class="product_padding">
+						<text><a href="#" class="artist_name">Klimt</a></text>
+	
+						<div class="artist_button_padding">
+							<button type="button" class="btn btn-md btn-info">
+								<span class="glyphicon glyphicon-fire"></span>
+								<text> Sales </text>
+								<span class="badge">36</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-2 artist_reduce_padding">
+				<div class="thumbnail artist_thumbnail_size">
+					<img src="images/artists/2.jpg" class="img-responsive"></img>
+					<div class="product_padding">
+						<text><a href="#" class="artist_name">Matisse</a></text>
+	
+						<div class="artist_button_padding">
+							<button type="button" class="btn btn-md btn-info">
+								<span class="glyphicon glyphicon-fire"></span>
+								<text> Sales </text>
+								<span class="badge">34</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		</div>
+		
+		<!-- Artist Row #2 -->
+		<div class="row">
+
+			<div class="col-md-2 artist_reduce_padding">
+				<div class="thumbnail artist_thumbnail_size">
+					<img src="images/artists/98.jpg" class="img-responsive"></img>
+					<div class="product_padding">
+						<text><a href="#" class="artist_name">Michelangelo</a></text>
+	
+						<div class="artist_button_padding">
+							<button type="button" class="btn btn-md btn-info">
+								<span class="glyphicon glyphicon-fire"></span>
+								<text> Sales </text>
+								<span class="badge">32</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-2 artist_reduce_padding">
+				<div class="thumbnail artist_thumbnail_size">
+					<img src="images/artists/106.jpg" class="img-responsive"></img>
+					<div class="product_padding">
+						<text><a href="#" class="artist_name">Vermeer</a></text>
+	
+						<div class="artist_button_padding">
+							<button type="button" class="btn btn-md btn-info">
+								<span class="glyphicon glyphicon-fire"></span>
+								<text> Sales </text>
+								<span class="badge">31</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-2 artist_reduce_padding">
+				<div class="thumbnail artist_thumbnail_size">
+					<img src="images/artists/97.jpg" class="img-responsive"></img>
+					<div class="product_padding">
+						<text><a href="#" class="artist_name">da Vinci</a></text>
+	
+						<div class="artist_button_padding">
+							<button type="button" class="btn btn-md btn-info">
+								<span class="glyphicon glyphicon-fire"></span>
+								<text> Sales </text>
+								<span class="badge">26</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-2 artist_reduce_padding">
+				<div class="thumbnail artist_thumbnail_size">
+					<img src="images/artists/21.jpg" class="img-responsive"></img>
+					<div class="product_padding">
+						<text><a href="#" class="artist_name">Cezanne</a></text>
+	
+						<div class="artist_button_padding">
+							<button type="button" class="btn btn-md btn-info">
+								<span class="glyphicon glyphicon-fire"></span>
+								<text> Sales </text>
+								<span class="badge">25</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-2 artist_reduce_padding">
+				<div class="thumbnail artist_thumbnail_size">
+					<img src="images/artists/17.jpg" class="img-responsive"></img>
+					<div class="product_padding">
+						<text><a href="#" class="artist_name">Monet</a></text>
+	
+						<div class="artist_button_padding">
+							<button type="button" class="btn btn-md btn-info">
+								<span class="glyphicon glyphicon-fire"></span>
+								<text> Sales </text>
+								<span class="badge">25</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-2 artist_reduce_padding">
+				<div class="thumbnail artist_thumbnail_size">
+					<img src="images/artists/101.jpg" class="img-responsive"></img>
+					<div class="product_padding">
+						<text><a href="#" class="artist_name">Caravaggio</a></text>
+	
+						<div class="artist_button_padding">
+							<button type="button" class="btn btn-md btn-info">
+								<span class="glyphicon glyphicon-fire"></span>
+								<text> Sales </text>
+								<span class="badge">18</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		</div>
+		
+		<div class="row text_small_padding">
+			<text class="artist_name">Artists by Genre</text>
+		</div>
+		
+		<div class="row progress_bottom_padding">
+
+			<div class="progress">
+				<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="100" style="width: 7%">Gothic</div>
+				<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="24" aria-valuemin="0" aria-valuemax="100" style="width: 24%">Renaissance</div>
+				<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100" style="width: 14%">Baroque</div>
+				<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">Pre-Modern</div>
+				<div class="progress-bar progress-bar-default" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%">Modern</div>
+			</div>
+		
+		</div>
+		
+	</div>
+
+</body>
+	
+</html>

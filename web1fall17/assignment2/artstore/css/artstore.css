@@ -1,0 +1,370 @@
+/* Work Page */
+
+#whitecolor {
+
+	color: white;
+	
+}
+
+.whitecolor {
+	color: white;
+}
+
+#graycolor {
+	
+	color: gray;
+	
+}
+
+.graycolor {
+	color: gray;
+}
+
+#red_price {
+	
+	font-weight: bold;
+	color: red;
+	font-size: 18pt;
+	
+	padding-top: 0px;
+	padding-bottom: 10px;
+	
+}
+
+#footer_background {
+	
+	background-color: #E7E7E7;
+	padding-bottom: 15px;
+	
+}
+
+#button_group {
+
+	color: inherit;
+	font-size: 18px;
+	
+}
+
+div > #button_group {
+	
+	color: #428BCA;
+	
+}
+
+#product_table {
+	
+	width: 100%;
+	
+}
+
+#thumbnail_text {
+	
+	font-size: 10pt;
+	
+}
+
+#thumbnail_size {
+	
+	width: 95%;
+	
+}
+
+#product_padding {
+	
+	padding: 9px;
+	
+}
+
+.product_padding {
+	
+	padding: 9px;
+	
+}
+
+#table_row_border {
+	
+	border-bottom: 1px solid #DDDDDD;
+	
+}
+
+#footer_padding {
+	
+	padding-top: 15px;
+	
+}
+
+#disclaimer {
+	
+	padding-left: 0px;
+	padding-bottom: 25px;
+	padding-top: 15px;
+	background-color: #3A3A3A;
+	
+}
+
+#disclaimer div div text {
+	
+	color: #707070;
+	
+}
+
+#service_padding {
+	
+	padding-top: 10px;
+	padding-left: 20px;
+	padding-bottom: 10px;
+	
+}
+
+#custom_bottom_padding {
+	
+	padding: 0px;
+	padding-bottom: 10px;
+	
+}
+
+#footer_custom_padding {
+	
+	padding-left: 0px;
+	
+	padding-right: 15px;
+	
+	padding-bottom: 0px;
+	
+	padding-top: 15px;
+	
+}
+
+#footer_text {
+	
+	font-family: 'Abel', sans-serif;
+	font-size: 18pt;
+	
+}
+
+#reset_text {
+	
+	font-family: default;
+	font-size: default;
+	
+}
+
+#product_element_left {
+	
+	padding: 15px;
+	font-weight: bold;
+	width: 50%;
+	
+}
+
+#product_element_right {
+	
+	padding: 15px;
+	width: 50%;
+	
+}
+
+#image_constrain {
+	
+	width: 120px;
+	height: 120px;
+	
+}
+
+#main_image {
+	
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-image: url("images/113010.jpg");
+	height: 500px;
+	
+}
+
+#title_padding {
+	
+	padding-bottom: 15px;
+	
+}
+
+#image_title_font {
+	
+	font-family: 'Abel', sans-serif;
+	font-size: 24pt;
+	
+}
+
+#store_font {
+
+	font-family: 'Architects Daughter', cursive;
+	font-size: 24pt;
+	
+}
+
+.store_font {
+	font-family: 'Architects Daughter', cursive;
+	font-size: 24pt;
+}
+
+#reduce_padding {
+	
+	padding: 0px;
+	
+}
+
+#media_font {
+
+	font-size: 10pt;
+	
+}
+
+#media_image {
+	
+	width: 40px;
+	height: 40px;
+	
+}
+
+#bold {
+	
+	font-weight: bold;
+	
+}
+
+/* About Page */
+
+#jumbotron_image {
+	
+	background-size: 105%;
+	background-image: url("../images/whistler.jpg");
+	height: 24em;
+	
+	background-repeat: repeat-x;
+	background-position: 65% 15%;
+	
+}
+
+#jumbotron_shadowed_text {
+	color: white;
+	text-shadow: black 0.3em 0.3em 0.3em
+}
+
+#jumbotron_shadowed_text h1 {
+	color: white;
+	text-shadow: black 0.3em 0.3em 0.3em;
+	
+	font-family: 'Abel', sans-serif;
+	font-size: 24pt;
+	
+	font-weight: bold;	
+}
+
+/* Artist Page */
+
+.artist_reduce_left_padding {
+	
+	padding-left: 0px;
+	
+}
+
+.artist_name {
+	
+	font-family: 'Abel', sans-serif;
+	font-size: 14pt;
+	color: black;
+	font-weight: bold;
+	
+}
+
+.artist_button_padding {
+	
+	padding-top: 10px;
+	
+}
+
+.artist_reduce_padding {
+	
+	padding: 0px;
+	
+}
+
+.artist_thumbnail_size {
+	width: 85%;
+}
+
+.artist_heading {
+	font-family: 'Abel', sans-serif;
+	font-size: 24pt;
+	color: black;
+	font-weight: bold;	
+}
+
+.progress_bottom_padding {
+	padding-bottom: 150px;
+}
+
+.text_small_padding {
+	padding-bottom: 15px;
+}
+
+/* Index Page */
+
+.index_nav_shadow {
+	color: white;
+	text-shadow: black 0.3em 0.3em 0.3em;
+	
+	font-family: 'Abel', sans-serif;
+	font-size: 24pt;
+	
+	font-weight: bold;	
+}
+
+.index_nav tr td {
+	
+	padding-top: 35px;
+	padding-left: 35px;
+	
+}
+
+.index_title {
+	
+	font-family: 'Architects Daughter', cursive;
+	font-size: 36pt;
+	
+}
+
+.index_carousel_positioning {
+	z-index: 1;
+}
+
+#myCarousel .item {
+	width: 100%;
+	height: 50em;
+}
+
+.index_customnav {
+	position: absolute;
+	z-index: 2;
+	left: 0;
+	top: 0;
+	
+	padding-left: 10em;
+}
+
+#portrait_descriptions {
+	
+	padding-top: 4em;
+	padding-bottom: 5em;
+	
+}
+
+#portrait_descriptions .thumbnail {
+    border: 0 none;
+    box-shadow: none;
+}
+
+#portrait_descriptions .painting_title {
+	
+	color: #656F71;
+	font-size: 18pt;
+	
+}
