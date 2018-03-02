@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang=en>
 <head>
@@ -18,6 +17,15 @@
 <body >
     
 <?php include 'include/art-header.inc.php' ?>
+    
+<?php
+
+include 'chapter14-project1-util.php';
+
+$db_engine = new CRMAEngine();
+$db_engine->artist_collection->get_artist_by_id(13);
+
+?>
     
 <main class="ui segment doubling stackable grid container">
 

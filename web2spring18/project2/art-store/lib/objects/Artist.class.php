@@ -1,5 +1,7 @@
 <?php
+
 class Artist {
+    
     private $artist_id;
     private $first_name;
     private $last_name;
@@ -58,4 +60,5 @@ class Artist {
         return $this->artist_link;
     }
 }
+
 ?>
