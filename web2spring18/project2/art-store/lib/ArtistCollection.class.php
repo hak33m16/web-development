@@ -43,29 +43,6 @@ class ArtistCollection {
         return $this->limit;
     }
     
-    /*
-        public function findById($id)
-    {
-        $sql = self::$baseSQL .  ' WHERE ToDoID=? ';
-        $statement = DatabaseHelper::runQuery($sql, Array($id));
-        return $statement->fetch();
-    }
-    
-    public function getAllByEmployee($employeeID)
-    {
-        $sql = self::$baseSQL .  ' WHERE EmployeeID=? ' . self::$constraint;
-        $statement = DatabaseHelper::runQuery($sql, Array($employeeID));
-        return $statement->fetchAll();
-    }    
-    
-    public function getAll()
-    {
-        $sql = self::$baseSQL . self::$constraint;
-        $statement = DatabaseHelper::runQuery($sql, null);
-        return $statement->fetchAll();        
-    }    
-    */
-    
 }
 
 ?>

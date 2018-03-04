@@ -8,14 +8,15 @@ class PaintingCollection {
     private $base_query = "SELECT * FROM paintings";
     private $paintings = null; // Cast array to type Artist
     private $limit = "30"; // default number of paintings to display
-    private $limit_query = " LIMIT ";// . $;// . (string)$this->limit;
+    private $limit_query = "";//" LIMIT ";// . $;// . (string)$this->limit;
     private $appendage = null;
     
     function __construct() {
         
-        //$limit_query .= (string)$this->limit;
+        $this->limit_query .= " LIMIT " . $this->limit;
+        //echo $this->limit;
         
-        $response = DatabaseHelper::runQuery($this->base_query, null);
+        $response = DatabaseHelper::runQuery($this->base_query . $this->limit_query, null);
         $content = $response->fetchAll();
         
         $this->appendage = "";
@@ -28,6 +29,9 @@ class PaintingCollection {
     }
     
     function rerun_query() {
+        
+        //$this->limit_query .= " LIMIT " . $this->limit;
+        
         $response = DatabaseHelper::runQuery($this->base_query . $this->appendage, null);
         $content = $response->fetchAll();
         
@@ -56,13 +60,22 @@ class PaintingCollection {
         return $this->limit;
     }
     
+    function set_limit($new_limit) {
+        $this->limit = (string)$new_limit;
+    }
+    
     function append_query($new_appendage) {
         if ( $this->appendage == "" ) $this->appendage = " WHERE";
+        if ( $this->appendage != "" && $this->appendage != " WHERE" ) $this->appendage .= " AND ";
         $this->appendage .= " " . $new_appendage;
     }
     
     function clear_appendage() {
         $this->appendage = "";
+    }
+    
+    function get_query() {
+        return $this->base_query . $this->appendage;
     }
     
 }

@@ -92,113 +92,85 @@ $SHAPES_COLLECTION = $db_engine->shapes_collection->get_shapes();
 
         <?php
             
-            $filtered_list = null;
+            $NO_QUERY_PARAMS = true;
+            $filtered_list = array();
             
             if ( !empty($_GET['artist']) ) {
                 // Ensure it is not the default selection
-                if ( $_GET['artist'] != "Select+Artist" ) {
+                if ( $_GET['artist'] != "Select Artist" ) {
+                    
+                    $NO_QUERY_PARAMS = false;
+                    
                     $db_engine->painting_collection->append_query( "ArtistID=" . (string)$_GET['artist'] );
                     $db_engine->painting_collection->rerun_query();
                     
                     $filtered_list = $db_engine->painting_collection->get_paintings();
-                }
-            }
-            
-            /*$filtered_list = $PAINTINGS_COLLECTION;
-            
-            if ( !empty($_GET['artist']) ) {
-                // Ensure it is not the default selection
-                if ( $_GET['artist'] != "Select+Artist" ) {
-                    foreach( $PAINTINGS_COLLECTION as $painting ) {
-                        //echo $_GET['artist'];
-                        //print_r($painting);
-                        if ( $_GET['artist'] == $painting->get_artist_id() ) {
-                            //echo "Found another painting by " . $_GET['artist'];
-                            
-                            array_push($filtered_list, $painting);
-                        }
-                        
-                    }
+                    
                 }
             }
             
             if ( !empty($_GET['museum']) ) {
-                
+                // Ensure it is not the default selection
+                if ( $_GET['museum'] != "Select Museum" ) {
+                    
+                    $NO_QUERY_PARAMS = false;
+                    
+                    $db_engine->painting_collection->append_query( "GalleryID=" . (string)$_GET['museum'] );
+                    $db_engine->painting_collection->rerun_query();
+                    
+                    $filtered_list = $db_engine->painting_collection->get_paintings();
+                    
+                }
             }
-            if ( !empty($_GET['shape']) ) {
-                
-            }*/
             
-            //print_r($db_engine->artist_collection->get_artist_by_id(13));
-            //$artists = $db_engine->artist_collection->get_artists();
+            if ( !empty($_GET['shape']) ) {
+                // Ensure it is not the default selection
+                if ( $_GET['shape'] != "Select Shape" ) {
+                    
+                    $NO_QUERY_PARAMS = false;
+                    
+                    $db_engine->painting_collection->append_query( "ShapeID=" . (string)$_GET['shape'] );
+                    $db_engine->painting_collection->rerun_query();
+                    
+                    $filtered_list = $db_engine->painting_collection->get_paintings();
+                    
+                }
+            }
+            
+            if ( $NO_QUERY_PARAMS ) $filtered_list = $PAINTINGS_COLLECTION; // Default, no params
             
             foreach( $filtered_list as $painting ) {
-                //echo $artist->get_id() . "\n";
                 ?>
                 <li class="item">
                     <a class="ui small image" href="single-painting.php?id=<?=$painting->get_id()?>">
-                        <img src="images/art/works/square-medium/131040.jpg">
+                        <img src="images/art/works/square-medium/<?=$painting->get_image_file_name()?>.jpg">
                     </a>
                     <div class="content">
-                        <a class="header" href="single-painting.php?id=<?=$painting->get_id()?>">View of St. Markís from the Punta della Dogana</a>
-                        <div class="meta"><span class="cinema">Canaleto</span></div>        
-                        <div class="description">
-                            <p>The View of St. Markís Basin came to Brera in 1828 with the View of the Grand Canal Looking toward the Punta della Dogana from Campo SantíIvo.</p>
+                        <a class="header" href="single-painting.php?id=<?=$painting->get_id()?>"><?=utf8_encode($painting->get_title())?></a>
+                        <div class="meta">
+                            <span class="cinema">
+                                <?=$db_engine->artist_collection->get_artist_by_id( $painting->get_artist_id() )->get_first_name()?>
+                                <?=" " . $db_engine->artist_collection->get_artist_by_id( $painting->get_artist_id() )->get_last_name()?>
+                            </span>
                         </div>
+                        
+                        <div class="description">
+                            <p><?=utf8_encode($painting->get_description())?></p>
+                        </div>
+                        
                         <div class="meta">     
-                            <strong>$900</strong>        
-                        </div>        
+                            <strong>$<?=$painting->get_cost()?></strong>        
+                        </div>
+                        
                         <div class="extra">
-                            <a class="ui icon orange button" href="cart.php?id=565"><i class="add to cart icon"></i></a>
-                            <a class="ui icon button" href="favorites.php?id=565"><i class="heart icon"></i></a>          
+                            <a class="ui icon orange button" href="#"<!--cart.php?id=565-->><i class="add to cart icon"></i></a>
+                            <a class="ui icon button" href="#"<!--favorites.php?id=565-->><i class="heart icon"></i></a>          
                         </div>        
                     </div>      
                 </li>
                 <?php
             }
-            
-            //for( $count = 0; $count < $db_engine->artist_collection->get_limit(); ++ $count ) {
-            //    print_r($artists[$count]->get_id());
-            //}
-            
         ?>
-        <!--
-          <li class="item">
-            <a class="ui small image" href="detail.php?id=565"><img src="images/art/works/square-medium/131040.jpg"></a>
-            <div class="content">
-              <a class="header" href="detail.php?id=565">View of St. Markís from the Punta della Dogana</a>
-              <div class="meta"><span class="cinema">Canaleto</span></div>        
-              <div class="description">
-                <p>The View of St. Markís Basin came to Brera in 1828 with the View of the Grand Canal Looking toward the Punta della Dogana from Campo SantíIvo.</p>
-              </div>
-              <div class="meta">     
-                  <strong>$900</strong>        
-              </div>        
-              <div class="extra">
-                <a class="ui icon orange button" href="cart.php?id=565"><i class="add to cart icon"></i></a>
-                <a class="ui icon button" href="favorites.php?id=565"><i class="heart icon"></i></a>          
-              </div>        
-            </div>      
-          </li>
-
-          <li class="item">
-            <a class="ui small image" href="detail.php?id=568"><img src="images/art/works/square-medium/137010.jpg"></a>
-            <div class="content">
-              <a class="header" href="detail.php?id=568">Abbey among Oak Trees</a>
-              <div class="meta"><span class="cinema">Casper David Friedrich</span></div>        
-              <div class="description">
-                <p>Abbey among Oak Trees is the companion piece to Monk by the Sea. Friedrich showed both paintings in the Berlin Academy Exhibition of 1810.</p>
-              </div>
-              <div class="meta">     
-                  <strong>$900</strong>        
-              </div>        
-              <div class="extra">
-                <a class="ui icon orange button" href="cart.php?id=568"><i class="add to cart icon"></i></a>
-                <a class="ui icon button" href="favorites.php?id=568"><i class="heart icon"></i></a>          
-              </div>        
-            </div>      
-          </li>    
-        -->
           
         </ul>        
     </section>  
