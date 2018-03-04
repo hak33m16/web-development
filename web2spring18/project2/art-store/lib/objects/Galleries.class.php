@@ -1,6 +1,7 @@
 <?php
 class Galleries {
-    private $gallery_ID;
+    
+    private $gallery_id;
     private $gallery_name;
     private $gallery_native_name;
     private $gallery_city;
@@ -10,7 +11,7 @@ class Galleries {
     private $gallery_web_site;
 
     function __construct($result) {
-        $this->gallery_ID = $result['GalleryID'];
+        $this->gallery_id = $result['GalleryID'];
         $this->gallery_name = $result['GalleryName'];
         $this->gallery_native_name = $result['GalleryNativeName'];
         $this->gallery_city = $result['GalleryCity'];
@@ -21,7 +22,7 @@ class Galleries {
     }
 
     function get_id() {
-        return $this->gallery_ID;
+        return $this->gallery_id;
     }
 
     function get_name() {
