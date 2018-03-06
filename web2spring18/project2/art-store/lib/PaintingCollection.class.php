@@ -78,6 +78,25 @@ class PaintingCollection {
         return $this->base_query . $this->appendage;
     }
     
+    function get_painting_by_id($match_id) {
+        
+        foreach( $this->paintings as $painting_obj ) {
+            if ( $painting_obj->get_id() == $match_id ) return $painting_obj;
+        }
+        
+        return null; // If no artist exists with that ID
+        
+    }
+    
+    function search_by_id($match_id) {
+        
+        $response = DatabaseHelper::runQuery("SELECT * FROM paintings WHERE PaintingID=" . (string)$match_id, null);
+        $content = $response->fetchAll();
+        
+        return $new_painting = new Painting($content[0]);
+        
+    }
+    
 }
 
 ?>

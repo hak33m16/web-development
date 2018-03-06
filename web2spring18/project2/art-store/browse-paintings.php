@@ -22,13 +22,16 @@
 
 include 'chapter14-project1-util.php';
 
-$db_engine = new CRMAEngine();
+$db_engine = new ArtStore();
+
 $ARTISTS_COLLECTION = $db_engine->artist_collection->get_artists();
 $GALLERIES_COLLECTION = $db_engine->galleries_collection->get_galleries();
 $PAINTINGS_COLLECTION = $db_engine->painting_collection->get_paintings();
 $SHAPES_COLLECTION = $db_engine->shapes_collection->get_shapes();
 
 ?>
+
+
     
 <main class="ui segment doubling stackable grid container">
 
@@ -88,10 +91,7 @@ $SHAPES_COLLECTION = $db_engine->shapes_collection->get_shapes();
 
     <section class="eleven wide column">
         <h1 class="ui header">Paintings</h1>
-        <ul class="ui divided items" id="paintingsList">
-
         <?php
-            
             $NO_QUERY_PARAMS = true;
             $filtered_list = array();
             
@@ -105,6 +105,10 @@ $SHAPES_COLLECTION = $db_engine->shapes_collection->get_shapes();
                     $db_engine->painting_collection->rerun_query();
                     
                     $filtered_list = $db_engine->painting_collection->get_paintings();
+                    
+                    ?>
+                        <h4 class="ui header" style="display: inline; padding-right: 25px;">Artist ▼ <?=$db_engine->artist_collection->get_artist_by_id( $_GET['artist'] )->get_first_name()?> <?=$db_engine->artist_collection->get_artist_by_id( $_GET['artist'] )->get_last_name()?></h1>
+                    <?php
                     
                 }
             }
@@ -120,6 +124,10 @@ $SHAPES_COLLECTION = $db_engine->shapes_collection->get_shapes();
                     
                     $filtered_list = $db_engine->painting_collection->get_paintings();
                     
+                    ?>
+                        <h4 class="ui header" style="display: inline; padding-right: 25px;">Museum ▼ <?=$db_engine->galleries_collection->get_gallery_by_id( $_GET['museum'] )->get_name()?></h1>
+                    <?php
+                    
                 }
             }
             
@@ -134,11 +142,21 @@ $SHAPES_COLLECTION = $db_engine->shapes_collection->get_shapes();
                     
                     $filtered_list = $db_engine->painting_collection->get_paintings();
                     
+                    ?>
+                        <h4 class="ui header" style="display: inline;">Shape ▼ <?=$db_engine->shapes_collection->get_shapes_by_id( $_GET['shape'] )->get_shape()?></h4>
+                    <?php
+                    
                 }
             }
             
             if ( $NO_QUERY_PARAMS ) $filtered_list = $PAINTINGS_COLLECTION; // Default, no params
+        ?>
+
+        <ul class="ui divided items" id="paintingsList">
+
+
             
+            <?php
             foreach( $filtered_list as $painting ) {
                 ?>
                 <li class="item">
@@ -159,7 +177,7 @@ $SHAPES_COLLECTION = $db_engine->shapes_collection->get_shapes();
                         </div>
                         
                         <div class="meta">     
-                            <strong>$<?=$painting->get_cost()?></strong>        
+                            <strong>$<?=(float)$painting->get_cost()?></strong>        
                         </div>
                         
                         <div class="extra">

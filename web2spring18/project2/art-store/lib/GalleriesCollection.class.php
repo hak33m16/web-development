@@ -29,7 +29,7 @@ class GalleriesCollection {
         return $this->galleries;
     }
     
-    function get_galleries_by_id($match_id) {
+    function get_gallery_by_id($match_id) {
         
         foreach( $this->galleries as $galleries_obj ) {
             if ( $galleries_obj->get_id() == $match_id ) return $galleries_obj;

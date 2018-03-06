@@ -16,6 +16,33 @@
 <body >
     
 <?php include 'include/art-header.inc.php' ?>
+
+<?php
+
+include 'chapter14-project1-util.php';
+
+$db_engine = new ArtStore();
+
+?>
+    
+<?php 
+
+    /* Query Paramater Handler */
+
+    $current_painting = $db_engine->painting_collection->search_by_id(42); // Default painting is "Glass of Absinthe"
+    if ( !empty($_GET['id']) ) {
+        
+        if ( ctype_digit($_GET['id']) ) {
+            $current_painting = $db_engine->painting_collection->search_by_id($_GET['id']);
+        }
+        
+    }
+    
+    $current_artist = $db_engine->artist_collection->get_artist_by_id( $current_painting->get_artist_id() );
+    $current_gallery = $db_engine->galleries_collection->get_gallery_by_id( $current_painting->get_gallery_id() );
+    $current_genres = $db_engine->genres_collection->find_genres( $current_painting->get_id() );
+    
+?>
     
 <main >
     <!-- Main section about painting -->
@@ -23,11 +50,11 @@
         <div class="ui doubling stackable grid container">
 		
             <div class="nine wide column">
-              <img src="images/art/works/medium/105010.jpg" alt="..." class="ui big image" id="artwork">
+              <img src="images/art/works/medium/<?=$current_painting->get_image_file_name()?>.jpg" alt="..." class="ui big image" id="artwork">
                 
                 <div class="ui fullscreen modal">
                   <div class="image content">
-                      <img src="images/art/works/large/105010.jpg" alt="..." class="image" >
+                      <img src="images/art/works/large/<?=$current_painting->get_image_file_name()?>.jpg" alt="..." class="image" >
                       <div class="description">
                       <p></p>
                     </div>
@@ -40,17 +67,18 @@
                 
                 <!-- Main Info -->
                 <div class="item">
-					<h2 class="header">The Anatomy Lesson of Dr. Nicolaes Tulp</h2>
-					<h3 >Rembrandt</h3>
+					<h2 class="header"><?=$current_painting->get_title()?></h2>
+					<h3><?=$current_artist->get_first_name()?> <?=$current_artist->get_last_name()?></h3>
 					<div class="meta">
 						<p>
-						<i class="orange star icon"></i>
-						<i class="orange star icon"></i>
-						<i class="orange star icon"></i>
-						<i class="orange star icon"></i>
-						<i class="empty star icon"></i>
+                            <i class="orange star icon"></i>
+                            <i class="orange star icon"></i>
+                            <i class="orange star icon"></i>
+                            <i class="orange star icon"></i>
+                            <i class="empty star icon"></i>
 						</p>
-						<p><em>The Anatomy Lesson of Dr. Nicolaes Tulp</em> is a 1632 oil painting by Rembrandt housed in the Mauritshuis museum in The Hague, the Netherlands. </p>
+						<!--<p><em>The Anatomy Lesson of Dr. Nicolaes Tulp</em> is a 1632 oil painting by Rembrandt housed in the Mauritshuis museum in The Hague, the Netherlands. </p>-->
+                        <p><?=utf8_encode($current_painting->get_description())?></p>
 					</div>  
                 </div>                          
                   
@@ -70,7 +98,7 @@
 							  Artist
 						  </td>
 						  <td>
-							<a href="#">Rembrandt</a>
+							<a href="browse-paintings.php?artist=<?=$current_artist->get_id()?>"><?=$current_artist->get_first_name()?> <?=$current_artist->get_last_name()?></a>
 						  </td>                       
 						  </tr>
 						<tr>                       
@@ -78,7 +106,7 @@
 							  Year
 						  </td>
 						  <td>
-							1632
+							<?=$current_painting->get_year_of_work()?>
 						  </td>
 						</tr>       
 						<tr>
@@ -86,7 +114,7 @@
 							  Medium
 						  </td>
 						  <td>
-							Oil on canvas
+							<?=$current_painting->get_medium()?>
 						  </td>
 						</tr>  
 						<tr>
@@ -94,7 +122,7 @@
 							  Dimensions
 						  </td>
 						  <td>
-							216cm x 170cm
+							<?=$current_painting->get_width()?>cm x <?=$current_painting->get_height()?>cm
 						  </td>
 						</tr>        
 					  </tbody>
@@ -109,15 +137,15 @@
                               Museum
                           </td>
                           <td>
-                            Royal Picture Gallery Mauritshuis
+                            <?=utf8_encode($current_gallery->get_name())?>
                           </td>
                         </tr>       
                         <tr>
                           <td>
-                              Assession #
+                              Accession #
                           </td>
                           <td>
-                            146
+                            <?=$current_painting->get_accession_number()?>
                           </td>
                         </tr>  
                         <tr>
@@ -125,7 +153,7 @@
                               Copyright
                           </td>
                           <td>
-                            Private Use Only
+                            <?=utf8_encode($current_painting->get_copyright_text())?>
                           </td>
                         </tr>       
                         <tr>
@@ -133,7 +161,7 @@
                               URL
                           </td>
                           <td>
-                            <a href="https://www.mauritshuis.nl/en/explore/the-collection/artworks/the-anatomy-lesson-of-dr-nicolaes-tulp-146/">View painting at museum site</a>
+                            <a href="<?=$current_painting->get_museum_link()?>">View painting at museum site</a>
                           </td>
                         </tr>        
                       </tbody>
@@ -142,16 +170,29 @@
                 <div class="ui bottom attached tab segment" data-tab="genres">
  
                         <ul class="ui list">
-                          <li class="item"><a href="#">Baroque</a></li>
-                            <li class="item"><a href="#">Dutch Golden Age</a></li>
+                            <?php
+                                foreach( $current_genres as $genre ) {
+                                    ?>
+                                        <li class="item"><a href="<?=$genre->get_link()?>"><?=$genre->get_name()?></a></li>
+                                    <?php
+                                }
+                            ?>
                         </ul>
 
                 </div>  
                 <div class="ui bottom attached tab segment" data-tab="subjects">
                     <ul class="ui list">
+                        
+                        <?php
+                            foreach( $current_subjects as $subject ) {
+                                
+                            }
+                        ?>
+                        
+                        <!--
                           <li class="item"><a href="#">People</a></li>
-                            <li class="item"><a href="#">Science</a></li>
-                        </ul>
+                            <li class="item"><a href="#">Science</a></li>-->
+                    </ul>
                 </div>  
                 
                 <!-- Cart and Price -->
@@ -159,7 +200,7 @@
                     <div class="ui form">
                         <div class="ui tiny statistic">
                           <div class="value">
-                            $1,200
+                            $<?=(float)$current_painting->get_msrp()?>
                           </div>
                         </div>
                         <div class="four fields">
@@ -221,7 +262,22 @@
             </div>
 			
             <div class="ui bottom attached active tab segment" data-tab="first">
-              <em>The Anatomy Lesson of Dr. Nicolas Tulp</em> is a 1632 oil painting by Rembrandt housed in the Mauritshuis museum in The Hague, the Netherlands. Dr. Nicolaes Tulp is pictured explaining the musculature of the arm to medical professionals. Some of the spectators are various doctors who paid commissions to be included in the painting. The painting is signed in the top-left hand corner Rembrant. This may be the first instance of Rembrandt signing a painting with his forename (in its original form) as opposed to the monogramme RHL (Rembrant Harmenszoon of Leiden), and is thus a sign of his growing artistic confidence.
+              <em>
+                <?php 
+                    
+                    $title = null;
+                    
+                    if ( empty($_GET['id']) ) {
+                        
+                    }
+                    
+                    //$title = empty($_GET['id']) ? "The Anatomy Lesson of Dr. Nicolas Tulp" : 
+                    //if (  )
+                    //{
+                    //    $title = ""
+                    //}
+                ?>
+              </em> is a 1632 oil painting by Rembrandt housed in the Mauritshuis museum in The Hague, the Netherlands. Dr. Nicolaes Tulp is pictured explaining the musculature of the arm to medical professionals. Some of the spectators are various doctors who paid commissions to be included in the painting. The painting is signed in the top-left hand corner Rembrant. This may be the first instance of Rembrandt signing a painting with his forename (in its original form) as opposed to the monogramme RHL (Rembrant Harmenszoon of Leiden), and is thus a sign of his growing artistic confidence.
             </div>	<!-- END DescriptionTab --> 
 			
             <div class="ui bottom attached tab segment" data-tab="second">

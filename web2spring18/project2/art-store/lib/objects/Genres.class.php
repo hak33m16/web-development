@@ -1,5 +1,6 @@
 <?php
 class Genres {
+    
     private $genre_ID;
     private $genre_name;
     private $genre_desc;
@@ -8,8 +9,8 @@ class Genres {
     function __construct($result) {
         $this->genre_ID = $result['GenreID'];
         $this->genre_name = $result['GenreName'];
-        $this->genre_desc = $result['GenreDesc'];
-        $this->genre_link = $result['GenreLink'];
+        $this->genre_desc = $result['Description'];
+        $this->genre_link = $result['Link'];
     }
 
     function get_id() {
@@ -20,12 +21,13 @@ class Genres {
         return $this->genre_name;
     }
 
-    function get_desc() {
+    function get_description() {
         return $this->genre_desc;
     }
 
     function get_link() {
         return $this->genre_link;
     }
+    
 }
 ?>
