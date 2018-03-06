@@ -6,6 +6,7 @@ include 'GalleriesCollection.class.php';
 include 'ShapesCollection.class.php';
 include 'GenresCollection.class.php';
 include 'SubjectsCollection.class.php';
+include 'ReviewsCollection.class.php';
 
 class ArtStore{
 	
@@ -15,6 +16,7 @@ class ArtStore{
     public $shapes_collection = null;
     public $genres_collection = null;
     public $subjects_collection = null;
+	public $reviews_collection = null;
     
 	public function __construct(){
 		$this->artist_collection = new ArtistCollection();
@@ -23,6 +25,7 @@ class ArtStore{
         $this->shapes_collection = new ShapesCollection();
         $this->genres_collection = new GenresCollection();
         $this->subjects_collection = new SubjectsCollection();
+		$this->reviews_collection = new ReviewsCollection();
 	}
     
 	/*public function getEmployeeCollection(){

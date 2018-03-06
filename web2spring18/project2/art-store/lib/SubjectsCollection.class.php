@@ -14,11 +14,21 @@ class SubjectsCollection {
     
     function find_subjects($painting_id) {
         
-        $this->base_query = "
+        /*$this->base_query = "
             SELECT DISTINCT *
             FROM subjects
             INNER JOIN
-        ";
+        ";*/
+		
+		$this->base_query =
+		"
+		SELECT *
+		FROM subjects AS A
+		INNER JOIN paintingsubjects AS B
+		ON A.SubjectID=B.SubjectID AND B.PaintingID=" . (string)$painting_id
+		;
+		
+		//$this->base_query = "SELECT * FROM subjects";
         
         $response = DatabaseHelper::runQuery($this->base_query, null);
         $content = $response->fetchAll();

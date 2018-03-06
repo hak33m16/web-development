@@ -42,6 +42,7 @@ $db_engine = new ArtStore();
     $current_gallery = $db_engine->galleries_collection->get_gallery_by_id( $current_painting->get_gallery_id() );
     $current_genres = $db_engine->genres_collection->find_genres( $current_painting->get_id() );
     $current_subjects = $db_engine->subjects_collection->find_subjects( $current_painting->get_id() );
+	$current_reviews = $db_engine->reviews_collection->get_reviews_by_painting_id( $current_painting->get_id() );
     
 ?>
     
@@ -265,7 +266,7 @@ $db_engine = new ArtStore();
             </div>
 			
             <div class="ui bottom attached active tab segment" data-tab="first">
-              <em>this </em> is a 1632 oil painting by Rembrandt housed in the Mauritshuis museum in The Hague, the Netherlands. Dr. Nicolaes Tulp is pictured explaining the musculature of the arm to medical professionals. Some of the spectators are various doctors who paid commissions to be included in the painting. The painting is signed in the top-left hand corner Rembrant. This may be the first instance of Rembrandt signing a painting with his forename (in its original form) as opposed to the monogramme RHL (Rembrant Harmenszoon of Leiden), and is thus a sign of his growing artistic confidence.
+				<?=utf8_encode($current_painting->get_description())?>
             </div>	<!-- END DescriptionTab --> 
 			
             <div class="ui bottom attached tab segment" data-tab="second">
@@ -276,7 +277,7 @@ $db_engine = new ArtStore();
                           Wikipedia Link
                       </td>
                       <td>
-                        <a href="#">View painting on Wikipedia</a>
+                        <a href="<?=$current_painting->get_wiki_link()?>">View painting on Wikipedia</a>
                       </td>                       
                       </tr>                       
                       
@@ -285,7 +286,7 @@ $db_engine = new ArtStore();
                           Google Link
                       </td>
                       <td>
-                        <a href="#">View painting on Google Art Project</a>
+                        <a href="<?=$current_painting->get_google_link()?>">View painting on Google Art Project</a>
                       </td>                       
                       </tr>
                       
@@ -294,7 +295,7 @@ $db_engine = new ArtStore();
                           Google Text
                       </td>
                       <td>
-                        
+                        <p><?=$current_painting->get_google_description()?></p>
                       </td>                       
                       </tr>                      
                       
@@ -307,6 +308,32 @@ $db_engine = new ArtStore();
             <div class="ui bottom attached tab segment" data-tab="third">                
 				<div class="ui feed">
 					
+					<?php
+						$count = 0;
+						foreach ($current_reviews as $review) {
+							if ( $count == 1 ) {
+								?>
+									<div class="ui divider"></div>  
+								<?php
+							}
+						?>
+						  <div class="event">
+							<div class="content">
+								<div class="date"><?=$review->get_review_date()?></div>
+								<div class="meta">
+									<a class="like">
+									  <i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i>
+									</a>
+								</div>                    
+								<div class="summary">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac vestibulum ligula. Nam ac erat sit amet odio semper vulputate. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse consequat pellentesque tellus, nec molestie tortor mattis eu. Aliquam cursus euismod nisl, vel vulputate metus interdum sit amet. Nam dictum eget ex non posuere. Praesent vel sodales velit. Ut id metus aliquam, egestas leo et, auctor ante.        
+								</div>       
+							</div>
+						  </div>
+						<?php
+						}
+					?>
+				<!--
 				  <div class="event">
 					<div class="content">
 						<div class="date">12/14/2016</div>
@@ -336,7 +363,7 @@ $db_engine = new ArtStore();
 						</div> 
 						
 					</div>
-				  </div>    
+				  </div>-->
 								
 				</div>                                
             </div>   <!-- END Reviews Tab -->          

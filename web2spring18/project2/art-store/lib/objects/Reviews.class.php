@@ -14,11 +14,11 @@ class Reviews {
         $this->comment = $result['Comment'];
     }
 
-    function get_r_id() {
+    function get_rating_id() {
         return $this->rating_ID;
     }
 
-    function get_p_id() {
+    function get_painting_id() {
         return $this->painting_ID;
     }
 
@@ -26,7 +26,7 @@ class Reviews {
         return $this->review_date;
     }
 
-    function get_ratng() {
+    function get_rating() {
         return $this->rating;
     }
 
