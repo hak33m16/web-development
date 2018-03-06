@@ -41,6 +41,7 @@ $db_engine = new ArtStore();
     $current_artist = $db_engine->artist_collection->get_artist_by_id( $current_painting->get_artist_id() );
     $current_gallery = $db_engine->galleries_collection->get_gallery_by_id( $current_painting->get_gallery_id() );
     $current_genres = $db_engine->genres_collection->find_genres( $current_painting->get_id() );
+    $current_subjects = $db_engine->subjects_collection->find_subjects( $current_painting->get_id() );
     
 ?>
     
@@ -185,7 +186,9 @@ $db_engine = new ArtStore();
                         
                         <?php
                             foreach( $current_subjects as $subject ) {
-                                
+                                ?>
+                                    <li class="item"><a href="#"><?=$subject->get_subject_name()?></a></li>
+                                <?php
                             }
                         ?>
                         
@@ -262,22 +265,7 @@ $db_engine = new ArtStore();
             </div>
 			
             <div class="ui bottom attached active tab segment" data-tab="first">
-              <em>
-                <?php 
-                    
-                    $title = null;
-                    
-                    if ( empty($_GET['id']) ) {
-                        
-                    }
-                    
-                    //$title = empty($_GET['id']) ? "The Anatomy Lesson of Dr. Nicolas Tulp" : 
-                    //if (  )
-                    //{
-                    //    $title = ""
-                    //}
-                ?>
-              </em> is a 1632 oil painting by Rembrandt housed in the Mauritshuis museum in The Hague, the Netherlands. Dr. Nicolaes Tulp is pictured explaining the musculature of the arm to medical professionals. Some of the spectators are various doctors who paid commissions to be included in the painting. The painting is signed in the top-left hand corner Rembrant. This may be the first instance of Rembrandt signing a painting with his forename (in its original form) as opposed to the monogramme RHL (Rembrant Harmenszoon of Leiden), and is thus a sign of his growing artistic confidence.
+              <em>this </em> is a 1632 oil painting by Rembrandt housed in the Mauritshuis museum in The Hague, the Netherlands. Dr. Nicolaes Tulp is pictured explaining the musculature of the arm to medical professionals. Some of the spectators are various doctors who paid commissions to be included in the painting. The painting is signed in the top-left hand corner Rembrant. This may be the first instance of Rembrandt signing a painting with his forename (in its original form) as opposed to the monogramme RHL (Rembrant Harmenszoon of Leiden), and is thus a sign of his growing artistic confidence.
             </div>	<!-- END DescriptionTab --> 
 			
             <div class="ui bottom attached tab segment" data-tab="second">
