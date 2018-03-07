@@ -46,7 +46,7 @@ $SHAPES_COLLECTION = $db_engine->shapes_collection->get_shapes();
                 <?php
                     foreach( $ARTISTS_COLLECTION as $artist ) {
                     ?>
-                        <option value="<?=$artist->get_id()?>"><?=$artist->get_first_name()?> <?=$artist->get_last_name()?></option>
+                        <option value="<?=$artist->get_id()?>"><?=utf8_encode($artist->get_first_name())?> <?=utf8_encode($artist->get_last_name())?></option>
                     <?php
                     }
                 ?>
@@ -107,7 +107,7 @@ $SHAPES_COLLECTION = $db_engine->shapes_collection->get_shapes();
                     $filtered_list = $db_engine->painting_collection->get_paintings();
                     
                     ?>
-                        <h4 class="ui header" style="display: inline; padding-right: 25px;">Artist ▼ <?=$db_engine->artist_collection->get_artist_by_id( $_GET['artist'] )->get_first_name()?> <?=$db_engine->artist_collection->get_artist_by_id( $_GET['artist'] )->get_last_name()?></h1>
+                        <h4 class="ui header" style="display: inline; padding-right: 25px;">Artist ▼ <?=utf8_encode($db_engine->artist_collection->get_artist_by_id( $_GET['artist'] )->get_first_name())?> <?=utf8_encode($db_engine->artist_collection->get_artist_by_id( $_GET['artist'] )->get_last_name())?></h1>
                     <?php
                     
                 }
@@ -167,8 +167,8 @@ $SHAPES_COLLECTION = $db_engine->shapes_collection->get_shapes();
                         <a class="header" href="single-painting.php?id=<?=$painting->get_id()?>"><?=utf8_encode($painting->get_title())?></a>
                         <div class="meta">
                             <span class="cinema">
-                                <?=$db_engine->artist_collection->get_artist_by_id( $painting->get_artist_id() )->get_first_name()?>
-                                <?=" " . $db_engine->artist_collection->get_artist_by_id( $painting->get_artist_id() )->get_last_name()?>
+                                <?=utf8_encode($db_engine->artist_collection->get_artist_by_id( $painting->get_artist_id() )->get_first_name())?>
+                                <?=" " . utf8_encode($db_engine->artist_collection->get_artist_by_id( $painting->get_artist_id() )->get_last_name())?>
                             </span>
                         </div>
                         

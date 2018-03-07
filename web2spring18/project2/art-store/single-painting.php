@@ -295,7 +295,7 @@ $db_engine = new ArtStore();
                           Google Text
                       </td>
                       <td>
-                        <p><?=$current_painting->get_google_description()?></p>
+                        <p><?=utf8_encode($current_painting->get_google_description())?></p>
                       </td>                       
                       </tr>                      
                       
@@ -311,7 +311,7 @@ $db_engine = new ArtStore();
 					<?php
 						$count = 0;
 						foreach ($current_reviews as $review) {
-							if ( $count == 1 ) {
+							if ( $count >= 1 ) {
 								?>
 									<div class="ui divider"></div>  
 								<?php
@@ -319,51 +319,35 @@ $db_engine = new ArtStore();
 						?>
 						  <div class="event">
 							<div class="content">
-								<div class="date"><?=$review->get_review_date()?></div>
+								<div class="date"><?=substr($review->get_review_date(), 0, 10)?></div>
 								<div class="meta">
 									<a class="like">
-									  <i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i>
+                                        <?php
+                                            $count = 0;
+                                            for( $count; $count < (int)$review->get_rating(); ++ $count ) {
+                                            ?>
+                                                <i class="star icon"></i>
+                                            <?php
+                                            }
+                                            
+                                            for ( $count; $count < 5; ++ $count ) {
+                                            ?>
+                                                <i class="empty star icon"></i>
+                                            <?php
+                                            }
+                                            
+                                        ?>
+                                        <!--<i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i>-->
 									</a>
 								</div>                    
 								<div class="summary">
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac vestibulum ligula. Nam ac erat sit amet odio semper vulputate. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse consequat pellentesque tellus, nec molestie tortor mattis eu. Aliquam cursus euismod nisl, vel vulputate metus interdum sit amet. Nam dictum eget ex non posuere. Praesent vel sodales velit. Ut id metus aliquam, egestas leo et, auctor ante.        
-								</div>       
+                                    <?=utf8_encode($review->get_comment())?>
+                                </div>       
 							</div>
 						  </div>
 						<?php
 						}
 					?>
-				<!--
-				  <div class="event">
-					<div class="content">
-						<div class="date">12/14/2016</div>
-						<div class="meta">
-							<a class="like">
-							  <i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i>
-							</a>
-						</div>                    
-						<div class="summary">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac vestibulum ligula. Nam ac erat sit amet odio semper vulputate. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse consequat pellentesque tellus, nec molestie tortor mattis eu. Aliquam cursus euismod nisl, vel vulputate metus interdum sit amet. Nam dictum eget ex non posuere. Praesent vel sodales velit. Ut id metus aliquam, egestas leo et, auctor ante.        
-						</div>       
-					</div>
-				  </div>
-					
-				<div class="ui divider"></div>    
-					
-				  <div class="event">
-					<div class="content">
-						<div class="date">8/16/2016</div>
-						<div class="meta">
-							<a class="like">
-							  <i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i>
-							</a>
-						</div>         
-						<div class="summary">
-							Donec vel tincidunt quam. Donec sed dictum quam, nec rutrum risus. Praesent ac tortor ut leo luctus cursus nec pharetra odio. Sed id orci id quam commodo congue eget eget erat. Quisque luctus posuere pharetra.        
-						</div> 
-						
-					</div>
-				  </div>-->
 								
 				</div>                                
             </div>   <!-- END Reviews Tab -->          
