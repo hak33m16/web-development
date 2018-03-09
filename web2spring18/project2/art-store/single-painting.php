@@ -43,6 +43,10 @@ $db_engine = new ArtStore();
     $current_genres = $db_engine->genres_collection->find_genres( $current_painting->get_id() );
     $current_subjects = $db_engine->subjects_collection->find_subjects( $current_painting->get_id() );
 	$current_reviews = $db_engine->reviews_collection->get_reviews_by_painting_id( $current_painting->get_id() );
+	
+	$frames = $db_engine->types_collection->get_frames();
+	$glasses = $db_engine->types_collection->get_glasses();
+	$mattes = $db_engine->types_collection->get_mattes();
     
 ?>
     
@@ -216,8 +220,15 @@ $db_engine = new ArtStore();
                                 <label>Frame</label>
                                 <select id="frame" class="ui search dropdown">
                                     <option>None</option>
-                                    <option>Ansley</option>
-                                    <option>Canyon</option>
+									<?php
+										foreach( $frames as $frame ) {
+											?>
+												<option><?=$frame->get_title()?></option>
+											<?php
+										}
+									?>
+                                    <!--<option>Ansley</option>
+                                    <option>Canyon</option>-->
                                 </select>
                             </div>  
                             <div class="four wide field">
