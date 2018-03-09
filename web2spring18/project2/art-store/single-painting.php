@@ -235,16 +235,26 @@ $db_engine = new ArtStore();
                                 <label>Glass</label>
                                 <select id="glass" class="ui search dropdown">
                                     <option>None</option>
-                                    <option>Clear</option>
-                                    <option>Museum</option>
+									<?php
+										foreach( $glasses as $glass ) {
+											?>
+												<option><?=$glass->get_title()?></option>
+											<?php
+										}
+									?>
                                 </select>
                             </div>  
                             <div class="four wide field">
                                 <label>Matt</label>
                                 <select id="matt" class="ui search dropdown">
                                     <option>None</option>
-                                    <option>Dawn Grey</option>
-                                    <option>Gold</option>
+									<?php
+										foreach( $mattes as $matt ) {
+											?>
+												<option><?=$matt->get_title()?></option>
+											<?php
+										}
+									?>
                                 </select>
                             </div>           
                         </div>                     
