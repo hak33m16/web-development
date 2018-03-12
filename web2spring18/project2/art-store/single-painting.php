@@ -214,7 +214,7 @@ $db_engine = new ArtStore();
                         <div class="four fields">
                             <div class="three wide field">
                                 <label>Quantity</label>
-                                <input type="number">
+                                <input placeholder=0 type="number">
                             </div>                               
                             <div class="four wide field">
                                 <label>Frame</label>

@@ -14,7 +14,22 @@ class GenresCollection {
     
     function find_genres($painting_id) {
         
-        $this->base_query = "
+        $this->base_query =
+        "
+        SELECT *
+        FROM genres
+        INNER JOIN (paintinggenres INNER JOIN paintings ON paintings.PaintingID=" . (string)$painting_id . " AND paintinggenres.PaintingID=" . (string)$painting_id . ")
+        ON genres.GenreID=paintinggenres.GenreID";
+        
+        /*$this->base_query = 
+        "
+        SELECT *
+        FROM genres
+        INNER JOIN (paintinggenres INNER JOIN paintings ON paintinggenres.PaintingID=paintings.PaintingID)
+        ON PaintingID=". (string)$painting_id . "
+        ";*/
+        
+        /*$this->base_query = "
             SELECT DISTINCT * FROM genres WHERE GenreID=
                 (
                 SELECT DISTINCT *
@@ -22,7 +37,7 @@ class GenresCollection {
                         SELECT DISTINCT GenreID FROM paintinggenres WHERE PaintingID=" . (string)$painting_id . "
                     ) AS uniquegenres
                 )
-        ";
+        ";*/
         
         $response = DatabaseHelper::runQuery($this->base_query, null);
         $content = $response->fetchAll();
