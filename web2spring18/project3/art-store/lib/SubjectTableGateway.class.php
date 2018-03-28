@@ -26,6 +26,27 @@ class SubjectTableGateway extends TableDataGateway
       return "SubjectID";
    }
    
+   /* Unique Concrete Definitions */
+   
+    public function findForPainting($paintingID) {
+	   
+		//$sql = $this->getSelectStatement() . ' WHERE PaintingID=' . $paintingID;
+		
+		$sql = '
+		SELECT * FROM subjects
+		LEFT JOIN paintingsubjects
+		ON subjects.SubjectID=paintingsubjects.SubjectID
+		WHERE PaintingID=' . $paintingID
+		;
+
+		return $this->convertRecordsToObjects( $this->dbAdapter->fetchAsArray( $sql ) );
+		
+		//$temp = $this->convertRecordsToObjects( $this->dbAdapter->fetchAsArray( $sql ) );
+		//print_r($temp);
+		//return $temp;
+		
+    }
+   
 }
 
 ?>

@@ -27,6 +27,7 @@
           <td>
             <?php 
 			// output GoogleLink if it's not empty
+			?>
           </td>                       
       </tr>
      

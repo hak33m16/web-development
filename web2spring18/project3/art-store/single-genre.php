@@ -2,14 +2,19 @@
 
 include 'includes/art-config.inc.php';
 
-$default = 87;
+// separate db connection from art-config
+$PDODBAdapter = DatabaseAdapterFactory::create('PDO', array(DBCONNECTION, DBUSER, DBPASS));
+
+$genreID = 87;
 if (isset($_GET['id']) && ! empty($_GET['id'])) {
-    $default = $_GET['id'];
+    $genreID = $_GET['id'];
 }
 try {
     
     // make use of genre and painting gateways
-    
+    $paintingGate = new PaintingTableGateway( $PDODBAdapter );
+	$genreGate = new GenreTableGateway( $PDODBAdapter );
+	
 }
 catch (PDOException $e) {
    die( $e->getMessage() );
@@ -42,15 +47,20 @@ catch (PDOException $e) {
     
 <main >
     
+	<?php
+		
+		$genre = $genreGate->findById( $genreID );
+		
+	?>
     <section class="ui segment grey100">
         <div class="ui doubling stackable grid container">
             <div class="three wide column">
-                <img src="images/art/genres/square-medium/<?php // output genre id ?>.jpg" 
-                    alt="<?php // output genre name  ?>" class="ui big image" id="artwork">
+                <img src="images/art/genres/square-medium/<?=$genre->GenreID?>.jpg" 
+                    alt="<?=$genre->GenreName?>" class="ui big image" id="artwork">
             </div>
             <div class="thirteen wide column">
-              <h1><?php echo // output genre name  ?></h1>
-                <p><?php echo // output genre description  ?></p>
+              <h1><?=$genre->GenreName?></h1>
+                <p><?=$genre->Description?></p>
             </div>            
         </div>                
     </section>
@@ -63,17 +73,30 @@ catch (PDOException $e) {
         
         
             
-            <?php // loop through paintings  ?>
+            <?php // loop through paintings 
+			
+				$result = $paintingGate->getAllByGenre($genreID);
+			
+				foreach ( $result as $painting ) {
+			
+			?>
    
                 <div class="ui fluid card">
-                    <a href="single-painting.php?id=<?php // output painting id ?>">
+                    <a href="single-painting.php?id=<?=$painting->PaintingID?>">
                     <div class="ui fluid image">
-                        <img src="images/art/works/square-medium/<?php echo // output painting filename  ?>.jpg">
+                        <img src="images/art/works/square-medium/<?=$painting->ImageFileName?>.jpg">
                     </div>
                     </a>
                 </div>
 
-            <?php } ?>
+            <?php 
+			
+				}
+			
+			  // Ensure that connection is closed
+			  $PDODBAdapter->closeConnection();
+			
+			?>
             
                 
         </div>

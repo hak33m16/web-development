@@ -65,7 +65,7 @@
         <li class="item">
           <?php // output genre as link ?>
         </li>
-      <?php } ?>
+      <?php //} ?>
     </ul>
 </div>  
 
@@ -75,6 +75,6 @@
             <li class="item">
               <?php // output subject as link ?>
             </li>
-          <?php } ?>
+          <?php //} ?>
     </ul>
 </div>  

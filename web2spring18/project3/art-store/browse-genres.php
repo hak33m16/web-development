@@ -2,7 +2,11 @@
 
 include 'includes/art-config.inc.php';
 
+// separate db connection from art-config
+$PDODBAdapter = DatabaseAdapterFactory::create('PDO', array(DBCONNECTION, DBUSER, DBPASS));
+
 // use genre gateway
+$gateway = new GenreTableGateway( $PDODBAdapter );
 
 ?>
 
@@ -25,7 +29,11 @@ include 'includes/art-config.inc.php';
 </head>
 <body >
     
-<?php include 'includes/art-header.inc.php'; ?>
+<?php 
+
+	include 'includes/art-header.inc.php';	
+	
+?>
     
 <main >
     <section class="ui" style="background: url(images/banner1.jpg); height: 100px; padding: 20px">
@@ -37,18 +45,30 @@ include 'includes/art-config.inc.php';
     <section class="ui basic segment container">
        <div class="ui six stackable cards">
 
-      <?php // loop thru genres ?>
+      <?php // loop thru genres 
+		$result = $gateway->findAllSorted(true);
+		foreach( $result as $genre ) {
+	  ?>
 
             <div class="centered card">
                 <div class="ui fluid image">
-                    <a href="single-genre.php?id=<?php // output genre id ?>"><img src="images/art/genres/square-medium/<?php // output genre id ?>.jpg"></a>
+					<a href="single-genre.php?id=<?=$genre->GenreID?>">
+						<img src="images/art/genres/square-medium/<?=$genre->GenreID?>.jpg">
+					</a>
                 </div>
                 <div class="content">
-                    <h5 class="header"><a href="single-genre.php?id=<?php // output genre id  ?>"><?php // output genre name  ?></a></h5>
+                    <h5 class="header">
+						<a href="single-genre.php?id=<?=$genre->GenreID?>"><?=$genre->GenreName?></a>
+					</h5>
                 </div>          
             </div>
 
-      <?php } ?>            
+      <?php } 
+	  
+	  // Ensure that connection is closed
+	  $PDODBAdapter->closeConnection();
+	  
+	  ?>            
         
         </div>
     </section>    

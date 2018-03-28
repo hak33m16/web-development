@@ -3,14 +3,21 @@
 include 'includes/art-config.inc.php';
 include 'includes/art-functions.inc.php';
 
-$default = 406;
+// separate db connection from art-config
+$PDODBAdapter = DatabaseAdapterFactory::create('PDO', array(DBCONNECTION, DBUSER, DBPASS));
 
+$paintingID = 406;
 if (isset($_GET['id']) && ! empty($_GET['id'])) {
-    $default = $_GET['id']; 
+    $paintingID = $_GET['id']; 
 }
 try {
-    // use painting, genre, and subject gateways  
     
+	// use painting, genre, and subject gateways  
+    $paintingGate = new PaintingTableGateway( $PDODBAdapter );
+	$genreGate = new GenreTableGateway( $PDODBAdapter );
+	$subjectGate = new SubjectTableGateway( $PDODBAdapter );
+	$artistGate = new ArtistTableGateway( $PDODBAdapter );
+	
 }
 catch (PDOException $e) {
    die( $e->getMessage() );
@@ -42,15 +49,22 @@ catch (PDOException $e) {
 <?php include 'includes/art-header.inc.php'; ?>
     
 <main >
+
+	<?php
+	
+	$painting = $paintingGate->findByID($paintingID);
+	$artist = $artistGate->findByID( $painting->ArtistID );
+	
+	?>
     <!-- Main section about painting -->
     <section class="ui segment grey100">
         <div class="ui doubling stackable grid container">
             <div class="nine wide column">
-              <img src="images/art/works/medium/<?php  // output image filename ?>.jpg" alt="..." class="ui big image" id="artwork">
+              <img src="images/art/works/medium/<?=$painting->ImageFileName?>.jpg" alt="..." class="ui big image" id="artwork">
                 
                 <div class="ui fullscreen modal">
                   <div class="image content">
-                      <img src="images/art/works/large/<?php // output painting filename?>.jpg" alt="..." class="image" >
+                      <img src="images/art/works/large/<?=$painting->ImageFileName?>.jpg" alt="..." class="image" >
                       <div class="description"><p></p></div>
                   </div>
                 </div>                
@@ -60,11 +74,11 @@ catch (PDOException $e) {
                 
                 <!-- Main Info -->
                 <div class="item">
-                    <h2 class="header"><?php // output painting title?></h2>
-                    <h3 ><?php // output painting artist names ?></h3>
+                    <h2 class="header"><?=$painting->Title?></h2>
+                    <h3 ><?=$artist->FirstName?> <?=$artist->LastName?></h3>
                       <div class="meta">
                         <p><?php echo generateRatingStars(4); ?></p>
-                        <p><?php // output painting excerpt ?></p>
+                        <p><?=$painting->Description?></p>
                       </div>  
                 </div>                          
                   
