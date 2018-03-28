@@ -1,3 +1,17 @@
+<?php
+
+/*
+*
+* Note that PHP variables come from parent page:
+* single-painting.php
+* which has children pages:
+* painting-small-tabs.inc.php
+* painting-large-tabs.inc.php
+*
+*/
+
+?>
+
 <div class="ui top attached tabular menu ">
     <a class="active item" data-tab="details"><i class="image icon"></i>Details</a>
     <a class="item" data-tab="museum"><i class="university icon"></i>Museum</a>
@@ -10,19 +24,19 @@
     <tbody>
       <tr>
         <td>Artist</td>
-        <td><?php // output artist name ?></td>                       
+        <td><?=$artist->FirstName // output artist name ?> <?=$artist->LastName?></td>                       
       </tr>
       <tr>                       
         <td>Year</td>
-        <td><?php // output year of work ?></td>
+        <td><?=$painting->YearOfWork // output year of work ?></td>
       </tr>       
       <tr>
         <td>Medium</td>
-        <td><?php // output medium ?></td>
+        <td><?=$painting->Medium // output medium ?></td>
       </tr>  
       <tr>
         <td>Dimensions</td>
-        <td><?php // output painting width and height ?>cm</td>
+        <td><?=$painting->Width // output painting width and height ?> x <?=$painting->Height?> cm</td>
       </tr>        
     </tbody>
   </table>
@@ -59,22 +73,44 @@
     </table>    
 </div>   
 
+<?php
+
+// pull in genres from gateway
+$genres = $genreGate->findForPainting($paintingID);
+
+?>
+
 <div class="ui bottom attached tab segment" data-tab="genres">
     <ul class="ui list">
-      <?php // loop thru genres ?>
+      <?php // loop thru genres
+		foreach ( $genres as $genre ) {
+	  ?>
         <li class="item">
-          <?php // output genre as link ?>
+          <a href="single-genre.php?id=<?=$genre->GenreID?>"><?=$genre->GenreName?></a>
         </li>
-      <?php //} ?>
+      <?php
+		}
+	  ?>
     </ul>
 </div>  
 
+<?php
+
+// pull in subjects from gateway
+$subjects = $subjectGate->findForPainting($paintingID);
+
+?>
+
 <div class="ui bottom attached tab segment" data-tab="subjects">
     <ul class="ui list">
-          <?php // loop thru subjects ?>
+          <?php // loop thru subjects
+			foreach ( $subjects as $subject ) {
+		  ?>
             <li class="item">
-              <?php // output subject as link ?>
+              <a href="#"><?=$subject->SubjectName?></a>
             </li>
-          <?php //} ?>
+          <?php
+		    }
+		  ?>
     </ul>
 </div>  

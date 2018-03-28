@@ -1,3 +1,17 @@
+<?php
+
+/*
+*
+* Note that PHP variables come from parent page:
+* single-painting.php
+* which has children pages:
+* painting-small-tabs.inc.php
+* painting-large-tabs.inc.php
+*
+*/
+
+?>
+
 <section class="ui doubling stackable grid container">
     <div class="sixteen wide column">
     
@@ -7,7 +21,7 @@
           <a class="item" data-tab="third">Reviews</a>
         </div>
         <div class="ui bottom attached active tab segment" data-tab="first">
-         <?php // output painting description ?>
+         <?=$painting->Description?>
         </div>
         <div class="ui bottom attached tab segment" data-tab="second">
 
@@ -16,8 +30,10 @@
       <tr>
         <td>Wikipedia Link</td>
         <td>
-        <?php 
+        <?=$painting->WikiLink
+			
            // output WikiLink if it's not empty
+		   //print_r( $paintingGate->findByID($paintingID) )
         ?>
         </td>                       
       </tr>                       
@@ -25,7 +41,7 @@
       <tr>
          <td>Google Link</td>
           <td>
-            <?php 
+            <?=$painting->GoogleLink
 			// output GoogleLink if it's not empty
 			?>
           </td>                       
@@ -33,7 +49,8 @@
      
       <tr>
         <td>Google Description</td>
-        <td><?php // output Google Description if it's not empty  ?></td>                       
+        <td><?=$painting->GoogleDescription
+		// output Google Description if it's not empty  ?></td>                       
       </tr>                      
     </tbody>
 </table>
