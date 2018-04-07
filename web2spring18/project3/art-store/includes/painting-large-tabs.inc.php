@@ -30,20 +30,14 @@
       <tr>
         <td>Wikipedia Link</td>
         <td>
-        <?=$painting->WikiLink
-			
-           // output WikiLink if it's not empty
-		   //print_r( $paintingGate->findByID($paintingID) )
-        ?>
+        <a href="<?=$painting->WikiLink?>"><?=$painting->WikiLink?></a>
         </td>                       
       </tr>                       
       
       <tr>
          <td>Google Link</td>
           <td>
-            <?=$painting->GoogleLink
-			// output GoogleLink if it's not empty
-			?>
+            <a href="<?=$painting->GoogleLink?>"><?=$painting->GoogleLink?></a>
           </td>                       
       </tr>
      

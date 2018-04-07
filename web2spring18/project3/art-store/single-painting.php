@@ -4,7 +4,9 @@ include 'includes/art-config.inc.php';
 include 'includes/art-functions.inc.php';
 
 // separate db connection from art-config
-$PDODBAdapter = DatabaseAdapterFactory::create('PDO', array(DBCONNECTION, DBUSER, DBPASS));
+//$PDODBAdapter = DatabaseAdapterFactory::create('PDO', array(DBCONNECTION, DBUSER, DBPASS));
+// now turned into singleton
+$PDODBAdapter = DatabaseAdapterFactory::getInstance( 'PDO', array(DBCONNECTION, DBUSER, DBPASS) );
 
 $paintingID = 406;
 if (isset($_GET['id']) && ! empty($_GET['id'])) {

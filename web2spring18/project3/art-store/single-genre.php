@@ -3,7 +3,7 @@
 include 'includes/art-config.inc.php';
 
 // separate db connection from art-config
-$PDODBAdapter = DatabaseAdapterFactory::create('PDO', array(DBCONNECTION, DBUSER, DBPASS));
+$PDODBAdapter = DatabaseAdapterFactory::getInstance( 'PDO', array(DBCONNECTION, DBUSER, DBPASS) );
 
 $genreID = 87;
 if (isset($_GET['id']) && ! empty($_GET['id'])) {

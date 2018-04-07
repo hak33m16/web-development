@@ -3,7 +3,9 @@
 include 'includes/art-config.inc.php';
 
 // separate db connection from art-config
-$PDODBAdapter = DatabaseAdapterFactory::create('PDO', array(DBCONNECTION, DBUSER, DBPASS));
+$PDODBAdapter = DatabaseAdapterFactory::getInstance( 'PDO', array(DBCONNECTION, DBUSER, DBPASS) );
+
+//DatabaseAdapterFactory::create('PDO', array(DBCONNECTION, DBUSER, DBPASS));
 
 // use genre gateway
 $gateway = new GenreTableGateway( $PDODBAdapter );

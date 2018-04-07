@@ -1,6 +1,8 @@
 <?PHP
 include 'includes/art-config.inc.php';
 
+$dbAdapter = DatabaseAdapterFactory::getInstance( 'PDO', array(DBCONNECTION, DBUSER, DBPASS) );
+
 ?>
 <html>
 <body>

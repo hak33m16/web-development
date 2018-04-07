@@ -11,7 +11,8 @@ class Painting extends DomainObject
       return array('PaintingID', 'ArtistID', 'GalleryID', 'ImageFileName',
 	  'Title', 'ShapeID', 'MuseumLink', 'AccessionNumber', 'CopyrightText',
 	  'Description', 'Excerpt', 'YearOfWork', 'Width', 'Height', 'Medium',
-	  'Cost', 'MSRP', 'GoogleLink', 'GoogleDescription', 'WikiLink');
+	  'Cost', 'MSRP', 'GoogleLink', 'GoogleDescription', 'WikiLink',
+      'GalleryID', 'GalleryName', 'GalleryWebSite');
    }
 
    public function __construct(array $data, $generateExc)

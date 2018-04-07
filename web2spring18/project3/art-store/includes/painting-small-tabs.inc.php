@@ -48,25 +48,25 @@
         <tr>
           <td>Museum</td>
           <td>
-            <?php // output gallery name ?>
+            <?=$painting->GalleryName // output gallery name ?>
           </td>
         </tr>       
         <tr>
           <td>Accession #</td>
           <td>
-            <?php // output AccessionNumber ?>
+            <?=$painting->AccessionNumber // output AccessionNumber ?>
           </td>
         </tr>  
         <tr>
           <td>Copyright</td>
           <td>
-            <?php // output CopyrightText ?>
+            <?=$painting->CopyrightText // output CopyrightText ?>
           </td>
         </tr>       
         <tr>
           <td>URL</td>
           <td>
-            <?php // output MuseumLink ?>
+            <a href="<?=$painting->MuseumLink?>"><?=$painting->MuseumLink?></a>
           </td>
         </tr>        
       </tbody>

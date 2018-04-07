@@ -9,6 +9,34 @@ class PaintingTableGateway extends TableDataGateway
 		parent::__construct($dbAdapter);
 	}
   
+    // Override TableDataGateway findAll interface
+    /*
+    public function findAll($sortFields=null) {
+        
+        $sql = "SELECT * FROM paintings
+        INNER JOIN galleries
+        ON paintings.GalleryID=galleries.GalleryID";
+
+        if (! is_null($sortFields)) {
+            $sql .= ' ORDER BY ' . $sortFields;
+        }      
+        
+        return $this->convertRecordsToObjects( $this->dbAdapter->fetchAsArray($sql) );
+        
+    }*/
+    
+    // Override select statement
+    protected function getSelectStatement() {
+        $select = "
+        SELECT * FROM paintings
+        INNER JOIN galleries
+        ON paintings.GalleryID=galleries.GalleryID
+        ";
+        return $select;
+    }
+  
+    // -- //
+  
 	protected function getDomainObjectClassName()  
 	{
 		return "Painting";
@@ -44,7 +72,7 @@ class PaintingTableGateway extends TableDataGateway
 		//print_r($temp);
 		//return $temp;
 		
-    }   
+    }
    
 	public function getAllByArtist($artistID) {
 		

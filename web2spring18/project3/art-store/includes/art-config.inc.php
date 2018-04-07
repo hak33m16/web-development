@@ -1,14 +1,14 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 
 /* note: connection for cloud9 ... you will need to modify for your own environment */
 //$ip = getenv('IP');
 //$ip = "localhost";
 //$port = '3306';
 
-$dbconnection = "mysql:host=localhost;dbname=art";
+$dbconnection = "mysql:host=localhost;dbname=art;charset=utf8";
 $dbusername = "wb2s18user";
 $dbpassword = "wb2s18pass";
 
@@ -26,6 +26,6 @@ spl_autoload_register(function ($class) {
       include $file;
 });
 
-$dbAdapter = DatabaseAdapterFactory::create('PDO', array(DBCONNECTION, DBUSER, DBPASS));
+//$dbAdapter = DatabaseAdapterFactory::create('PDO', array(DBCONNECTION, DBUSER, DBPASS));
 
 ?>
