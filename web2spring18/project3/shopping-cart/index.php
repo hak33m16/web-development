@@ -6,12 +6,23 @@
     Source: https://www.codexworld.com/simple-php-shopping-cart-using-sessions/
     File: index.php
     Author 1: CodexWorld
-    Author 2: ...
+    Author 2: Abdel-Hakeem Badran
 -->
 <?php
-// include database configuration file
+
 error_reporting( E_ALL );
-include 'dbConfig.php';
+
+include 'includes/db-config.php';
+
+$PDODBAdapter = DatabaseAdapterFactory::getInstance( 'PDO', array(DBCONNECTION, DBUSER, DBPASS) );
+$productsCollection = new ProductsCollection( $PDODBAdapter );
+$products = $productsCollection->findAll();
+
+echo $products[0]->name;
+$products[0]->name = "Dummy Name";
+echo $products[0]->name;
+echo date("20y-m-d h:m:s");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,30 +51,33 @@ include 'dbConfig.php';
     <a href="viewCart.php" class="cart-link" title="View Cart"><i class="glyphicon glyphicon-shopping-cart"></i></a>
     <div id="products" class="row list-group">
         <?php
-        //get rows query
-        $query = $db->query("SELECT * FROM products ORDER BY id DESC LIMIT 10");
-        if($query->num_rows > 0){ 
-            while($row = $query->fetch_assoc()){
+            if ( !is_null( $products ) ) {
+                foreach ( $products as $product ) {
         ?>
         <div class="item col-lg-4">
             <div class="thumbnail">
                 <div class="caption">
-                    <h4 class="list-group-item-heading"><?php echo $row["name"]; ?></h4>
-                    <p class="list-group-item-text"><?php echo $row["description"]; ?></p>
+                    <h4 class="list-group-item-heading"><?=$product->name?></h4>
+                    <p class="list-group-item-text"><?=$product->description?></p>
                     <div class="row">
                         <div class="col-md-6">
-                            <p class="lead"><?php echo '$'.$row["price"].' USD'; ?></p>
+                            <p class="lead"><?=$product->price?></p>
                         </div>
                         <div class="col-md-6">
-                            <a class="btn btn-success" href="cartAction.php?action=addToCart&id=<?php echo $row["id"]; ?>">Add to cart</a>
+                            <a class="btn btn-success" href="cartAction.php?action=addToCart&id=<?=$product->id?>">Add to cart</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <?php } }else{ ?>
+        <?php
+                } // end for
+            } else { // end if, go to else
+        ?>
         <p>Product(s) not found.....</p>
-        <?php } ?>
+        <?php
+            }
+        ?>
     </div>
 </div>
 </body>
