@@ -18,10 +18,10 @@ $PDODBAdapter = DatabaseAdapterFactory::getInstance( 'PDO', array(DBCONNECTION, 
 $productsCollection = new ProductsCollection( $PDODBAdapter );
 $products = $productsCollection->findAll();
 
-echo $products[0]->name;
+/*echo $products[0]->name;
 $products[0]->name = "Dummy Name";
 echo $products[0]->name;
-echo date("20y-m-d h:m:s");
+echo date("20y-m-d h:m:s");*/
 
 ?>
 <!DOCTYPE html>

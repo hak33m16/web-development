@@ -16,7 +16,20 @@
     Author 1: CodexWorld
     Author 2: ...
 -->
-<?php session_start();
+<?php
+
+include 'lib/DomainCollection.class.php'
+
+session_start();
+
+class Cart {
+    
+    protected $contents = null;
+    
+}
+
+/*
+session_start();
 class Cart {
     protected $cart_contents = array();
     
@@ -29,11 +42,11 @@ class Cart {
 		}
     }
     
-    /**
-	 * Cart Contents: Returns the entire cart array
-	 * @param	bool
-	 * @return	array
-	 */
+    /////
+	 // Cart Contents: Returns the entire cart array
+	 // @param	bool
+	 // @return	array
+	 ///
 	public function contents(){
 		// rearrange the newest first
 		$cart = array_reverse($this->cart_contents);
@@ -45,27 +58,27 @@ class Cart {
 		return $cart;
 	}
     
-    /**
-	 * Total Items: Returns the total item count
-	 * @return	int
-	 */
+    /////
+	 // Total Items: Returns the total item count
+	 // @return	int
+	 ///
 	public function total_items(){
 		return $this->cart_contents['total_items'];
 	}
     
-    /**
-	 * Cart Total: Returns the total price
-	 * @return	int
-	 */
+    /////
+	 // Cart Total: Returns the total price
+	 // @return	int
+	 ///
 	public function total(){
 		return $this->cart_contents['cart_total'];
 	}
     
-    /**
-	 * Insert items into the cart and save it to the session
-	 * @param	array
-	 * @return	bool
-	 */
+    /////
+	 // Insert items into the cart and save it to the session
+	 // @param	array
+	 // @return	bool
+	 ///
 	public function insert($item = array()){
 		if(!is_array($item) OR count($item) === 0){
 			return FALSE;
@@ -73,9 +86,9 @@ class Cart {
             if(!isset($item['id'], $item['name'], $item['price'], $item['quantity'])){
                 return FALSE;
             }else{
-                /*
-                 * Insert Item
-                 */
+                ///
+                 // Insert Item
+                 ///
                 // prep the quantity, then save
                 $item['quantity'] = (float) $item['quantity'];
                 if($item['quantity'] == 0){
@@ -101,11 +114,11 @@ class Cart {
         }
 	}
     
-    /**
-	 * Update the cart
-	 * @param	array
-	 * @return	bool
-	 */
+    /////
+	 // Update the cart
+	 // @param	array
+	 // @return	bool
+	 ///
 	public function update($item = array()){
 		if (!is_array($item) OR count($item) === 0){
 			return FALSE;
@@ -140,10 +153,10 @@ class Cart {
 		}
 	}
     
-    /**
-	 * Save the cart array to the session
-	 * @return	bool
-	 */
+    /////
+	 // Save the cart array to the session
+	 // @return	bool
+	 ///
 	protected function save_cart(){
 		$this->cart_contents['total_items'] = $this->cart_contents['cart_total'] = 0;
 		foreach ($this->cart_contents as $key => $val){
@@ -167,11 +180,11 @@ class Cart {
 		}
     }
     
-    /**
-	 * Remove Item: Removes an item from the cart
-	 * @param	int
-	 * @return	bool
-	 */
+    /////
+	 // Remove Item: Removes an item from the cart
+	 // @param	int
+	 // @return	bool
+	 ///
 	 public function remove($row_id){
 		// unset & save       
 		unset($this->cart_contents[$row_id]);
@@ -179,14 +192,16 @@ class Cart {
 		return TRUE;
 	 }
      
-    /**
-	 * Destroy the cart: Empties the cart and destroy the session
-	 * @return	void
-	 */
+    /////
+	 // Destroy the cart: Empties the cart and destroy the session
+	 // @return	void
+	 ///
 	public function destroy(){
 		//Reset cart_contents
         //destroy session
 		$this->cart_contents = array('cart_total' => 0, 'total_items' => 0);
 		unset($_SESSION['cart_contents']);
-	}
-}
+	}*/
+//}
+
+?>

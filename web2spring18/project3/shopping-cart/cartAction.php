@@ -18,11 +18,11 @@
 -->
 <?php
 // initialize shopping cart class
-include 'Cart.php';
+include 'lib/Cart.php';
 $cart = new Cart;
 
 // include database configuration file
-include 'dbConfig.php';
+// include 'dbConfig.php';
 if(isset($_GET['action']) && !empty($_GET['action'])){
     if($_GET['action'] == 'addToCart' && !empty($_GET['id'])){
         $productID = $_GET['id'];

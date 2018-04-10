@@ -36,7 +36,7 @@
       </tr>  
       <tr>
         <td>Dimensions</td>
-        <td><?=$painting->Width // output painting width and height ?> x <?=$painting->Height?> cm</td>
+        <td><?=$painting->Width // output painting width and height ?>cm x <?=$painting->Height?>cm</td>
       </tr>        
     </tbody>
   </table>

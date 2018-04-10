@@ -2,7 +2,7 @@
     <div class="ui form">
         <div class="ui tiny statistic">
           <div class="value">
-            <?php // output painting msrp ?>
+            $<?=number_format($painting->MSRP, 2, '.', ',')?>
           </div>
         </div>
         <div class="four fields">
