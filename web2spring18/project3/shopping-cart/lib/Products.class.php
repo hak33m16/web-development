@@ -7,10 +7,20 @@
 class Products extends DomainObject
 {  
    
-   static function getFieldNames() {
-      return array('id', 'name', 'description', 'price', 'created', 'modified', 'status');
-   }
+   
+   
+    static function getTableName() {
+		return 'products';
+    }
+   
+    static function getFieldNames() {
+        return array('id', 'name', 'description', 'price', 'created', 'modified', 'status');
+    }
 
+   static function findByKey($key) {
+	   
+   }
+   
    public function __construct(array $data, $generateExc)
    {
       parent::__construct($data, $generateExc);

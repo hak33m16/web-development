@@ -23,11 +23,12 @@ abstract class DomainCollection
     //
     ///////////////////////
 
-    abstract protected function getTableName();
-    abstract protected function getDomainObjectClassName();
-    abstract protected function getOrderFields();
-
-    protected function getPrimaryKeyName() { return "id"; }
+    abstract static protected function getTableName();
+    abstract static protected function getDomainObjectClassName();
+    abstract static protected function getOrderFields();
+	abstract static protected function getPrimaryKeyName();
+	
+    //protected function getPrimaryKeyName() { return "id"; }
     
     //public function getCollection() { return $collection; }
 
@@ -37,7 +38,10 @@ abstract class DomainCollection
     //
     ///////////////////////
 
-    public function findAll($sortFields=null)
+	//abstract public function findAll($sortFields=null);
+	//abstract public function findBy($whereClause, $parameterValues=array(), $sortFields=null);
+	
+    /*public function findAll($sortFields=null)
     {
         $sql = $this->getSelectStatement();
         // add sort order if required
@@ -50,7 +54,7 @@ abstract class DomainCollection
         return $this->convertRecordsToObjects($this->PDODBAdapter->fetchAsArray($sql));
         //$this->collection = $this->convertRecordsToObjects($this->PDODBAdapter->fetchAsArray($sql));
 
-    }
+    }*/
 
    public function findAllSorted($ascending)
    {
@@ -61,7 +65,7 @@ abstract class DomainCollection
       return $this->convertRecordsToObjects($this->PDODBAdapter->fetchAsArray($sql));
    }
 
-   public function findBy($whereClause, $parameterValues=array(), $sortFields=null)
+   /*public function findBy($whereClause, $parameterValues=array(), $sortFields=null)
    {
       $sql = $this->getSelectStatement() . ' WHERE ' . $whereClause;
       // add sort order if required
@@ -70,7 +74,7 @@ abstract class DomainCollection
       }
       $result = $this->PDODBAdapter->fetchAsArray($sql, $parameterValues);
       return $this->convertRecordsToObjects($result);
-   }
+   }*/
 
    public function findById($id)
    {
@@ -108,7 +112,7 @@ abstract class DomainCollection
       Converts the array of records that comes from the database adapter into
       an array of object of the appropriate Domain Object subclass type
    */
-   protected function convertRecordsToObjects($results)
+   protected static function convertRecordsToObjects($results)
    {
       $className = $this->getDomainObjectClassName();
       $rows = Array();
