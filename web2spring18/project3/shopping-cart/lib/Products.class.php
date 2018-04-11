@@ -1,14 +1,23 @@
 <?php
 /*
-   Represents a single row for the Artist table. 
+   Represents a single row for the Products table. 
    
-   This a concrete implementation of the Domain Model pattern.
+   This a concrete implementation of the Domain Model/Active Architecture pattern.
  */
 class Products extends DomainObject
-{  
-   
-   
-   
+{
+    public function __construct(array $data, $pdo=null, $generateExc=false)
+    {
+        parent::__construct($data, $pdo, $generateExc);
+    }
+    
+    ////////////////////////////////////////////////
+    //
+    // Common getters implemented in concrete.
+    //
+    //////////////////////////////////
+    //
+    
     static function getTableName() {
 		return 'products';
     }
@@ -17,33 +26,41 @@ class Products extends DomainObject
         return array('id', 'name', 'description', 'price', 'created', 'modified', 'status');
     }
 
-   static function findByKey($key) {
-	   
-   }
+    /////////////////////////////////////////////////
+    //
+    // Abstract static, expected in all concretes.
+    //
+    /////////////////////
+    //
+    
+    static function findByKey($key) {
+        $data = ProductsCollection::findByAsArray("id=" . $key);
+        $PDOAdapter = DatabaseAdapterFactory::getInstance( 'PDO', array(DBCONNECTION, DBUSER, DBPASS) );
+        return new Products($data[0], $PDOAdapter, true);
+    }
    
-   public function __construct(array $data, $generateExc)
-   {
-      parent::__construct($data, $generateExc);
-   }
-   
-   // implement any setters that need input checking/validation
-   
-   /*
-   public function getFullName($commaDelimited)
-   {
-      if ($commaDelimited)
-         return $this->LastName . ', ' . $this->FirstName;
-      else
-         return $this->FirstName . ' ' . $this->LastName;
-   }
-   
-   public function setLastName($value) {
-      if (! is_string($value) || strlen($value) < 2 ||
-            strlen($value) > 255) {
-         throw new InvalidArgumentException(" The last name is invalid.");
-      }
-         $this->LastName = $value;
-      }   */
+    //////////////////////////////////////////
+    //
+    // Generalized abstracts.
+    //
+    /////////////////
+    //
+    
+    public function insert() {
+        print_r($this->fieldValues);
+        echo "<br>" . Products::getTableName();
+        //print_r($this->PDOAdapter);
+        $this->PDOAdapter->insert( Products::getTableName(), $this->fieldValues );
+    }
+    
+    public function update() {
+        
+    }
+    
+    public function delete() {
+        
+    }
+    
 }
 
 ?>

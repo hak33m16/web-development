@@ -1,13 +1,16 @@
 <?php
 
+////////////////////////////////////
+//
+// Abdel-Hakeem Badran
+// 04/10/2018
+//
+///////////////////////////
+
 abstract class DomainCollection
 {
-
     protected $PDODBAdapter = null;
-    //protected $collection = array();
-    
-    /*
-    */
+
     public function __construct( $dbadapter )
     {
         if ( is_null($dbadapter) ) {
@@ -23,14 +26,19 @@ abstract class DomainCollection
     //
     ///////////////////////
 
-    abstract static protected function getTableName();
+    abstract static public function findAll($sortFields);
+    abstract static public function findBy($whereClause, $parameterValues, $sortFields);
+    abstract static public function findByAsArray($whereClause, $parameterValues, $sortFields);
+
+    abstract public function insertMultiple($objectArray);
+    abstract public function updateMultiple($objectArray);
+    abstract public function deleteMultiple($objectArray);
+    
+    abstract static protected function convertRecordsToObjects($results);
     abstract static protected function getDomainObjectClassName();
+    abstract static protected function getTableName();
     abstract static protected function getOrderFields();
 	abstract static protected function getPrimaryKeyName();
-	
-    //protected function getPrimaryKeyName() { return "id"; }
-    
-    //public function getCollection() { return $collection; }
 
     /////////////////////////////////////////
     //
@@ -38,6 +46,54 @@ abstract class DomainCollection
     //
     ///////////////////////
 
+    // Subclasses can override this if they need a non-standard SELECT.
+    protected function getSelectStatement()
+    {
+        $className = $this->getDomainObjectClassName();
+        return "SELECT " . $className::fieldNameList() . " FROM " . $this->getTableName();
+    }
+    
+    // Converts the array of record data that comes from the database adapter into
+    // an object of the appropriate Domain Object subclass type.
+    protected function convertRowToObject($result)
+    {
+        $className = $this->getDomainObjectClassName();
+        return new $className($result,false);
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    //protected function getPrimaryKeyName() { return "id"; }
+    
+    //public function getCollection() { return $collection; }  
+    
 	//abstract public function findAll($sortFields=null);
 	//abstract public function findBy($whereClause, $parameterValues=array(), $sortFields=null);
 	
@@ -56,6 +112,7 @@ abstract class DomainCollection
 
     }*/
 
+    /*
    public function findAllSorted($ascending)
    {
       $sql = $this->getSelectStatement() . ' ORDER BY ' . $this->getOrderFields();
@@ -63,7 +120,7 @@ abstract class DomainCollection
          $sql .= " DESC";
       }
       return $this->convertRecordsToObjects($this->PDODBAdapter->fetchAsArray($sql));
-   }
+   }*/
 
    /*public function findBy($whereClause, $parameterValues=array(), $sortFields=null)
    {
@@ -76,11 +133,12 @@ abstract class DomainCollection
       return $this->convertRecordsToObjects($result);
    }*/
 
+   /*
    public function findById($id)
    {
       $sql = $this->getSelectStatement() . ' WHERE ' . $this->getPrimaryKeyName() . '=:id';
       return $this->convertRowToObject($this->PDODBAdapter->fetchRow($sql, Array(':id' => $id)) );
-   }
+   }*/
 
    //////////////////////////////////
    //
@@ -88,30 +146,13 @@ abstract class DomainCollection
    //
    ////////////////////////
 
-   /*
-    * Subclasses can override this if they need a non-standard SELECT
-    */
-   protected function getSelectStatement()
-   {
-      $className = $this->getDomainObjectClassName();
-      return "SELECT " . $className::fieldNameList() . " FROM " . $this->getTableName();
-   }
 
-   /*
-      Converts the array of record data that comes from the database adapter into
-      an object of the appropriate Domain Object subclass type
-   */
-   protected function convertRowToObject($result)
-   {
-      $className = $this->getDomainObjectClassName();
-
-      return new $className($result,false);
-   }
 
    /*
       Converts the array of records that comes from the database adapter into
       an array of object of the appropriate Domain Object subclass type
    */
+   /*
    protected static function convertRecordsToObjects($results)
    {
       $className = $this->getDomainObjectClassName();
@@ -122,8 +163,8 @@ abstract class DomainCollection
          $rows[] = $instance;
       }
       return $rows;
-   }
+   }*/
 
-}
+//}
 
 ?>

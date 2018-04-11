@@ -81,6 +81,10 @@ class DatabaseAdapterPDO implements DatabaseAdapterInterface
         return sprintf("'%s'", $identifier);
     }
 
+    private function tickIdentifier($identifier)
+    {
+        return sprintf("`%s`", $identifier);
+    }
 
     /**
      * Returns a single field value
@@ -131,16 +135,19 @@ class DatabaseAdapterPDO implements DatabaseAdapterInterface
      */
     public function insert($tableName, $parameters=array())
     {
+        echo "Made it to PDO insert.<br>";
+        print_r($parameters);
         // Extract fields and values from parameters
         $fields = array();
         $values = array();
         foreach ($parameters as $field => $value) {
-            $fields[] = $this->quoteIdentifier($field);
+            $fields[] = $this->tickIdentifier($field);
             $values[] = '?';
         }
         // Construct SQL and execute
-        $escapedTableName = $this->quoteIdentifier($tableName);
+        $escapedTableName = $this->tickIdentifier($tableName);
         $sql = sprintf("INSERT INTO %s (%s) VALUES (%s)", $escapedTableName, implode(', ', $fields), implode(', ', $values));
+        print_r($sql);
         return $this->runQuery($sql, array_values($parameters));
     }
 
