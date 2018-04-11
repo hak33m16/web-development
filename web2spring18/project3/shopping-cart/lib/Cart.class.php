@@ -34,7 +34,7 @@ class Cart {
 		if ( !empty( $_SESSION['cart_contents'] ) ) {
 			$this->contents = $_SESSION['cart_contents'];
 		} else {
-			$this->contents = null;
+			$this->contents = array();
 		}
 		
 	}
@@ -47,7 +47,7 @@ class Cart {
 	public function total_items() {
 		
 		$itemcount = 0;
-		foreach ( $contents as $order_item ) {
+		foreach ( $this->contents as $order_item ) {
 			$itemcount += $order_item->quantity;
 		}
 		
@@ -57,15 +57,41 @@ class Cart {
 	public function total_price() {
 		
 		$total = 0.00;
-		foreach ( $contents as $order_item ) {
+		foreach ( $this->contents as $order_item ) {
 			$current_product = Products::findByKey( $order_item->product_id );
 			$total += $current_product->price;
 		}
 		
 		return $total;
 	}
-	
-	
+    
+	public function insert($product) {
+        
+        $new_item = true;
+        for ( $i = 0; $i < count( $this->contents ); ++ $i ) {
+            
+            // The item is already in the cart.
+            if ( $this->contents[$i]->product_id == $product->id ) {
+                $new_item = false;
+                $this->contents[$i]->quantity += 1;
+            }
+            
+        }
+        
+        if ( $new_item ) {
+            $orderItem = new OrderItems();
+                            
+            $orderItem->id = null;
+            $orderItem->order_id = null;
+            $orderItem->product_id = $product->id;
+            $orderItem->quantity = 1;
+                            
+            $this->contents[] = $orderItem; // Same as 'array_push'
+        }
+        
+        print_r( $this->contents );
+        
+    }
 	
 }
 

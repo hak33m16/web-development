@@ -6,12 +6,17 @@
     Source: https://www.codexworld.com/simple-php-shopping-cart-using-sessions/
     File: viewCart.php
     Author 1: CodexWorld
-    Author 2: ...
+    
+    Author 2    :   Abdel-Hakeem Badran
+    Date:       :   04/11/2018
 -->
 <?php
-// initialize shopping cart class
-include 'Cart.php';
+
+// Includes the auto-include function.
+include 'includes/db-config.php';
+
 $cart = new Cart;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

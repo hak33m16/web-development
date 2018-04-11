@@ -15,8 +15,6 @@ include 'includes/db-config.php';
 $domainControllerInstance = new DomainLevelController( null );
 $products = $domainControllerInstance->productsCollection;
 
-$temp = new Cart();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

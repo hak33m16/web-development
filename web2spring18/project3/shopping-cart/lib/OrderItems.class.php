@@ -15,7 +15,7 @@
 
 class OrderItems extends DomainObject
 {
-    public function __construct(array $data, $pdo=null, $generateExc=false)
+    public function __construct(array $data=array(), $pdo=null, $generateExc=false)
     {
         parent::__construct($data, $pdo, $generateExc);
     }

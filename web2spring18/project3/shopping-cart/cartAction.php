@@ -23,7 +23,23 @@ include 'includes/db-config.php';
 
 $cart = new Cart();
 
-header("Location: index.php");
+// Check if the page has been accessed correctly.
+if ( isset($_GET['action']) && !empty($_GET['action']) ) {
+    
+    // Check if we can add the requested item id to the cart
+    if ( $_GET['action'] == 'addToCart' && !empty($_GET['id']) ) {
+        
+        $product = Products::findByKey( $_GET['id'] );
+        
+        $cart->insert( $product );
+        
+        // Show user the changes to their cart
+        //header("Location: viewCart.php");
+    }
+    
+}
+
+
 
 /*
 if(isset($_GET['action']) && !empty($_GET['action'])){
