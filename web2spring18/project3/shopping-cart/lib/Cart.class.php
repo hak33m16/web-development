@@ -14,18 +14,59 @@
     Source: https://www.codexworld.com/simple-php-shopping-cart-using-sessions/
     File: Cart.php
     Author 1: CodexWorld
-    Author 2: ...
+    
+	
+	Author 2	: 	Abdel-Hakeem Badran
+	Date		: 	04/11/2018
 -->
 <?php
-
-include 'lib/DomainCollection.class.php'
 
 session_start();
 
 class Cart {
     
-    protected $contents = null;
-    
+	// Contents should be stored in the form of
+	// an array of OrderItems objects.
+    protected $contents = array();
+	
+	public function __construct() {
+		
+		if ( !empty( $_SESSION['cart_contents'] ) ) {
+			$this->contents = $_SESSION['cart_contents'];
+		} else {
+			$this->contents = null;
+		}
+		
+	}
+	
+	public function contents() {
+		$cart = array_reverse( $this->contents );
+		return $cart;
+	}
+	
+	public function total_items() {
+		
+		$itemcount = 0;
+		foreach ( $contents as $order_item ) {
+			$itemcount += $order_item->quantity;
+		}
+		
+		return $itemcount;
+	}
+	
+	public function total_price() {
+		
+		$total = 0.00;
+		foreach ( $contents as $order_item ) {
+			$current_product = Products::findByKey( $order_item->product_id );
+			$total += $current_product->price;
+		}
+		
+		return $total;
+	}
+	
+	
+	
 }
 
 /*

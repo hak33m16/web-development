@@ -17,12 +17,15 @@
     Author 2: ...
 -->
 <?php
-// initialize shopping cart class
-include 'lib/Cart.php';
-$cart = new Cart;
 
-// include database configuration file
-// include 'dbConfig.php';
+// Includes auto-include function.
+include 'includes/db-config.php';
+
+$cart = new Cart();
+
+header("Location: index.php");
+
+/*
 if(isset($_GET['action']) && !empty($_GET['action'])){
     if($_GET['action'] == 'addToCart' && !empty($_GET['id'])){
         $productID = $_GET['id'];
@@ -82,4 +85,4 @@ if(isset($_GET['action']) && !empty($_GET['action'])){
     }
 }else{
     header("Location: index.php");
-}
+}*/

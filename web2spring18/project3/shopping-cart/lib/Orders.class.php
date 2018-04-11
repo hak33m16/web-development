@@ -1,6 +1,6 @@
 <?php
 
-// Represents a single row for the Customers table. 
+// Represents a single row for the Orders table. 
 // This a concrete implementation of the Domain Model/Active Architecture pattern.
 
 ////////////////////////////////////
@@ -8,12 +8,12 @@
 // Abdel-Hakeem Badran
 // 04/10/2018
 //
-// Class	: 	Customers
+// Class	: 	Orders
 // Parent	: 	DomainObject
 //
 ///////////////////////////
 
-class Customers extends DomainObject
+class Orders extends DomainObject
 {
     public function __construct(array $data, $pdo=null, $generateExc=false)
     {
@@ -28,11 +28,11 @@ class Customers extends DomainObject
     //
     
     static function getTableName() {
-		return 'customers';
+		return 'orders';
     }
    
     static function getFieldNames() {
-        return array('id', 'name', 'email', 'phone', 'address', 'created', 'modified', 'status');
+        return array('id', 'customer_id', 'total_price', 'created', 'modified', 'status');
     }
 
     /////////////////////////////////////////////////
@@ -43,9 +43,9 @@ class Customers extends DomainObject
     //
     
     static function findByKey($key) {
-        $data = CustomersCollection::findByAsArray("id=" . $key);
+        $data = OrdersCollection::findByAsArray("id=" . $key);
         $PDOAdapter = DatabaseAdapterFactory::getInstance( 'PDO', array(DBCONNECTION, DBUSER, DBPASS) );
-        return new Customers($data[0], $PDOAdapter, true);
+        return new Orders($data[0], $PDOAdapter, true);
     }
    
     //////////////////////////////////////////
@@ -56,15 +56,15 @@ class Customers extends DomainObject
     //
     
     public function insert() {
-        $this->PDOAdapter->insert( Customers::getTableName(), $this->fieldValues );
+        $this->PDOAdapter->insert( Orders::getTableName(), $this->fieldValues );
     }
     
     public function update() {
-        throw new Exception("No 'update' implemented for class Customers.");
+        throw new Exception("No 'update' implemented for class Orders.");
     }
     
     public function delete() {
-        throw new Exception("No 'delete' implemented for class Products.");
+        throw new Exception("No 'delete' implemented for class Orders.");
     }
     
 }

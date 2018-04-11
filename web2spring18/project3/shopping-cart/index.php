@@ -10,13 +10,12 @@
 -->
 <?php
 
-error_reporting( E_ALL );
-
 include 'includes/db-config.php';
 
-$PDODBAdapter = DatabaseAdapterFactory::getInstance( 'PDO', array(DBCONNECTION, DBUSER, DBPASS) );
-$productsCollection = new ProductsCollection( $PDODBAdapter );
-$products = $productsCollection->findAll();
+$domainControllerInstance = new DomainLevelController( null );
+$products = $domainControllerInstance->productsCollection;
+
+$temp = new Cart();
 
 ?>
 <!DOCTYPE html>

@@ -5,12 +5,12 @@
 // Abdel-Hakeem Badran
 // 04/10/2018
 //
-// Class	: 	ProductsCollection
+// Class	: 	CustomersCollection
 // Parent	: 	DomainCollection
 //
 ///////////////////////////
 
-class ProductsCollection extends DomainCollection
+class CustomersCollection extends DomainCollection
 {
     // For use with non-static database manipulation functions.
     // protected $PDODBAdapter = null;
@@ -26,12 +26,12 @@ class ProductsCollection extends DomainCollection
     //////////////////////
     //
     
-    public function addProduct($product) {
-        $product->insert();
+    public function addCustomer($customer) {
+        $customer->insert();
     }
     
-    public function removeProduct($product) {
-        $product->delete();
+    public function removeCustomer($customer) {
+        $customer->delete();
     }
     
     //////////////////////////////////////////////////
@@ -50,19 +50,19 @@ class ProductsCollection extends DomainCollection
 	public static function findAll($sortFields=null)
     {	
         // Static methods must define their own instance of the select statement.
-		$sql = "SELECT " . Products::fieldNameList() . " FROM " . Products::getTableName();
+		$sql = "SELECT " . Customers::fieldNameList() . " FROM " . Customers::getTableName();
         if (! is_null($sortFields)) {
             $sql .= ' ORDER BY ' . $sortFields;
         }
         // Static methods must define their own instance of the adapter.
         $PDOAdapter = DatabaseAdapterFactory::getInstance( 'PDO', array(DBCONNECTION, DBUSER, DBPASS) );
 
-        return ProductsCollection::convertRecordsToObjects( $PDOAdapter->fetchAsArray($sql) );
+        return CustomersCollection::convertRecordsToObjects( $PDOAdapter->fetchAsArray($sql) );
 	}
 	
     public static function findBy($whereClause, $parameterValues=array(), $sortFields=null)
     {
-	    $sql = "SELECT " . Products::fieldNameList() . " FROM " . Products::getTableName() . " WHERE " . $whereClause;
+	    $sql = "SELECT " . Customers::fieldNameList() . " FROM " . Customers::getTableName() . " WHERE " . $whereClause;
 
         // Add sort order, only if required.
         if (! is_null($sortFields)) {
@@ -72,12 +72,12 @@ class ProductsCollection extends DomainCollection
         $PDOAdapter = DatabaseAdapterFactory::getInstance( 'PDO', array(DBCONNECTION, DBUSER, DBPASS) );
         $result = $PDOAdapter->fetchAsArray($sql, $parameterValues);
         
-        return ProductsCollection::convertRecordsToObjects($result);
+        return CustomersCollection::convertRecordsToObjects($result);
     }
     
     public static function findByAsArray($whereClause, $parameterValues=array(), $sortFields=null)
     {
-	    $sql = "SELECT " . Products::fieldNameList() . " FROM " . Products::getTableName() . " WHERE " . $whereClause;
+	    $sql = "SELECT " . Customers::fieldNameList() . " FROM " . Customers::getTableName() . " WHERE " . $whereClause;
 
         // Add sort order, only if required.
         if (! is_null($sortFields)) {
@@ -87,7 +87,7 @@ class ProductsCollection extends DomainCollection
         $PDOAdapter = DatabaseAdapterFactory::getInstance( 'PDO', array(DBCONNECTION, DBUSER, DBPASS) );
         $result = $PDOAdapter->fetchAsArray($sql, $parameterValues);
         
-        return $result;//ProductsCollection::convertRecordsToObjects($result);
+        return $result;//CustomersCollection::convertRecordsToObjects($result);
     }
 	
     /////////////////////////////////////////////////////
@@ -98,33 +98,33 @@ class ProductsCollection extends DomainCollection
     
     public function insertMultiple($objectArray=null)
     {
-        foreach ( $objectArray as $product ) {
-            if ( is_a( $product, 'Products' ) ) {
-                $product->insert();
+        foreach ( $objectArray as $customer ) {
+            if ( is_a( $customer, 'Customers' ) ) {
+                $customer->insert();
             } else {
-                throw new Exception("Object type does not match expected: Products");
+                throw new Exception("Object type does not match expected: Customers");
             }
         }
     }
     
     public function updateMultiple($objectArray=null)
     {
-        foreach ( $objectArray as $product ) {
-            if ( is_a( $product, 'Products' ) ) {
-                $product->update();
+        foreach ( $objectArray as $customer ) {
+            if ( is_a( $customer, 'Customers' ) ) {
+                $customer->update();
             } else {
-                throw new Exception("Object type does not match expected: Products");
+                throw new Exception("Object type does not match expected: Customers");
             }
         }
     }
     
     public function deleteMultiple($objectArray=null)
     {
-        foreach ( $objectArray as $product ) {
-            if ( is_a( $product, 'Products' ) ) {
-                $product->delete();
+        foreach ( $objectArray as $customer ) {
+            if ( is_a( $customer, 'Customers' ) ) {
+                $customer->delete();
             } else {
-                throw new Exception("Object type does not match expected: Products");
+                throw new Exception("Object type does not match expected: Customers");
             }
         }
     }
@@ -137,7 +137,7 @@ class ProductsCollection extends DomainCollection
     
     protected static function convertRecordsToObjects($results)
     {
-        $className = ProductsCollection::getDomainObjectClassName();
+        $className = CustomersCollection::getDomainObjectClassName();
         
         // Static methods must define their own instance of the adapter.
         $PDOAdapter = DatabaseAdapterFactory::getInstance( 'PDO', array(DBCONNECTION, DBUSER, DBPASS) );
@@ -160,12 +160,12 @@ class ProductsCollection extends DomainCollection
     
     protected static function getDomainObjectClassName()  
     {
-        return "Products";
+        return "Customers";
     } 
     
     protected static function getTableName()
     {
-        return "products";
+        return "customers";
     }
     
     protected static function getOrderFields() 
