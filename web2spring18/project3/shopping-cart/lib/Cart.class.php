@@ -31,6 +31,7 @@ class Cart {
 	
 	public function __construct() {
 		
+		//unset($_SESSION['cart_contents']);
 		if ( !empty( $_SESSION['cart_contents'] ) ) {
 			$this->contents = $_SESSION['cart_contents'];
 		} else {
@@ -83,7 +84,20 @@ class Cart {
 		
 		for ( $i = 0; $i < count( $this->contents ); ++ $i ) {
 			if ( $this->contents[$i]->product_id == $id ) {
-				unset($this->contents[$i]);
+				//unset($this->contents[$i]);
+				//array_values( $this->contents );
+				array_splice( $this->contents, $i, $i + 1 );
+				$this->save_contents();
+			}
+		}
+		
+	}
+	
+	public function update_product_quantity_by_id( $id, $newQuantity ) {
+		
+		for ( $i = 0; $i < count( $this->contents ); ++ $i ) {
+			if ( $this->contents[$i]->product_id == $id ) {
+				$this->contents[$i]->quantity = $newQuantity;
 				$this->save_contents();
 			}
 		}
@@ -118,6 +132,11 @@ class Cart {
         $_SESSION['cart_contents'] = $this->contents;
 		
     }
+	
+	public function destroy() {
+		$this->contents = array();
+		unset( $_SESSION['cart_contents'] );
+	}
 	
 }
 

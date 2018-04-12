@@ -35,6 +35,10 @@ class Orders extends DomainObject
         return array('id', 'customer_id', 'total_price', 'created', 'modified', 'status');
     }
 
+	public function setConnection( $pdo ) {
+		$PDOAdapter = $pdo;
+	}
+	
     /////////////////////////////////////////////////
     //
     // Abstract static, expected in all concretes.

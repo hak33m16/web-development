@@ -135,8 +135,8 @@ class DatabaseAdapterPDO implements DatabaseAdapterInterface
      */
     public function insert($tableName, $parameters=array())
     {
-        echo "Made it to PDO insert.<br>";
-        print_r($parameters);
+        //echo "Made it to PDO insert.<br>";
+        //print_r($parameters);
         // Extract fields and values from parameters
         $fields = array();
         $values = array();
@@ -147,7 +147,7 @@ class DatabaseAdapterPDO implements DatabaseAdapterInterface
         // Construct SQL and execute
         $escapedTableName = $this->tickIdentifier($tableName);
         $sql = sprintf("INSERT INTO %s (%s) VALUES (%s)", $escapedTableName, implode(', ', $fields), implode(', ', $values));
-        print_r($sql);
+        //print_r($sql);
         return $this->runQuery($sql, array_values($parameters));
     }
 

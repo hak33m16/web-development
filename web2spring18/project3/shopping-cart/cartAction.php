@@ -40,6 +40,47 @@ if ( isset($_GET['action']) && !empty($_GET['action']) ) {
 		$cart->remove_product_by_id( $_GET['id'] );
 		header("Location: viewCart.php");
 		
+	} else if ( $_GET['action'] == 'updateCartItem' && !empty( $_GET['id'] ) ) {
+		
+		$cart->update_product_quantity_by_id( $_GET['id'], $_GET['quantity'] );
+		echo 'ok';
+		die;
+		
+	} else if ( $_GET['action'] == 'placeOrder' && $cart->total_items() > 0 && !empty($_SESSION['sessionCustomerID']) ) {
+		
+		$date = date("Y-m-d h:m:s");
+		
+		// -- //
+		
+		$PDOAdapter = DatabaseAdapterFactory::getInstance( 'PDO', array(DBCONNECTION, DBUSER, DBPASS) );
+        
+		$current_order = new Orders( array(), $PDOAdapter, null );
+		
+		$current_order->customer_id = $_SESSION['sessionCustomerID'];
+		$current_order->total_price = $cart->total_price();
+		$current_order->created = $date;
+		$current_order->modified = $date;
+		$current_order->status = 1;
+		
+		$current_order->insert();
+		
+		// -- //
+		
+		$current_order = new Orders( OrdersCollection::findByAsArray("id=(SELECT max(id) FROM orders)")[0] );
+		print_r( $current_order );
+		
+		$cart_contents = $cart->contents();
+		foreach ( $cart_contents as $orderItem ) {
+			$orderItem->setConnection( $PDOAdapter );
+			$orderItem->id = 0;
+			$orderItem->order_id = $current_order->id;
+			$orderItem->insert();
+		}
+		
+		$cart->destroy();
+		
+		header("Location: orderSuccess.php?id=" . $current_order->id);
+		
 	}
     
 }

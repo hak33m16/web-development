@@ -34,6 +34,10 @@ class OrderItems extends DomainObject
     static function getFieldNames() {
         return array('id', 'order_id', 'product_id', 'quantity');
     }
+	
+	public function setConnection( $pdo ) {
+		$this->PDOAdapter = $pdo;
+	}
 
     /////////////////////////////////////////////////
     //
@@ -56,6 +60,8 @@ class OrderItems extends DomainObject
     //
     
     public function insert() {
+		//echo 'made it here';
+		print_r($this->fieldValues);
         $this->PDOAdapter->insert( OrderItems::getTableName(), $this->fieldValues );
     }
     

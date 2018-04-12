@@ -16,6 +16,9 @@
 include 'includes/db-config.php';
 
 $cart = new Cart;
+//print_r($cart->contents());
+
+//echo date("Y-m-d h:m:s");
 
 ?>
 <!DOCTYPE html>
@@ -37,11 +40,12 @@ $cart = new Cart;
     <script>
     function updateCartItem(obj,id){
         $.get("cartAction.php", {action:"updateCartItem", id:id, quantity:obj.value}, function(data){
-            if(data == 'ok'){
+            //if(data == 'ok'){
+				//alert(obj + id + data);
                 location.reload();
-            }else{
-                alert('Cart update failed, please try again.');
-            }
+            //}else{
+            //    alert('Cart update failed, please try again.');
+            //}
         });
     }
     </script>

@@ -8,11 +8,10 @@
     Author 2: ...
 -->
 <?php
-// include database configuration file
-include 'dbConfig.php';
 
-// initializ shopping cart class
-include 'Cart.php';
+include 'includes/db-config.php';
+
+include 'lib/Cart.class.php';
 $cart = new Cart;
 
 // redirect to home if cart is empty
@@ -21,11 +20,13 @@ if($cart->total_items() <= 0){
 }
 
 // set customer ID in session
-$_SESSION['sessCustomerID'] = 1;
+$_SESSION['sessionCustomerID'] = 1;
 
 // get customer details by session customer ID
-$query = $db->query("SELECT * FROM customers WHERE id = ".$_SESSION['sessCustomerID']);
-$custRow = $query->fetch_assoc();
+// $query = $db->query("SELECT * FROM customers WHERE id = ".$_SESSION['sessCustomerID']);
+// $custRow = $query->fetch_assoc();
+$customer = Customers::findByKey( $_SESSION['sessionCustomerID'] );
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,14 +60,15 @@ $custRow = $query->fetch_assoc();
         <?php
         if($cart->total_items() > 0){
             //get cart items from session
-            $cartItems = $cart->contents();
-            foreach($cartItems as $item){
+            $cart_contents = $cart->contents();
+            foreach( $cart_contents as $order_item ){
+				$product = Products::findByKey( $order_item->product_id );
         ?>
         <tr>
-            <td><?php echo $item["name"]; ?></td>
-            <td><?php echo '$'.$item["price"].' USD'; ?></td>
-            <td><?php echo $item["quantity"]; ?></td>
-            <td><?php echo '$'.$item["subtotal"].' USD'; ?></td>
+            <td><?=$product->name?></td>
+            <td><?php echo "$" . $product->price . " USD"; 	?></td>
+            <td><?=$order_item->quantity?></td>
+            <td><?php echo "$" . $product->price * $order_item->quantity . " USD"; ?></td>
         </tr>
         <?php } }else{ ?>
         <tr><td colspan="4"><p>No items in your cart......</p></td>
@@ -76,17 +78,17 @@ $custRow = $query->fetch_assoc();
         <tr>
             <td colspan="3"></td>
             <?php if($cart->total_items() > 0){ ?>
-            <td class="text-center"><strong>Total <?php echo '$'.$cart->total().' USD'; ?></strong></td>
+            <td class="text-center"><strong>Total <?php echo '$'.$cart->total_price().' USD'; ?></strong></td>
             <?php } ?>
         </tr>
     </tfoot>
     </table>
     <div class="shipAddr">
         <h4>Shipping Details</h4>
-        <p><?php echo $custRow['name']; ?></p>
-        <p><?php echo $custRow['email']; ?></p>
-        <p><?php echo $custRow['phone']; ?></p>
-        <p><?php echo $custRow['address']; ?></p>
+        <p><?php echo $customer->name; ?></p>
+        <p><?php echo $customer->email; ?></p>
+        <p><?php echo $customer->phone; ?></p>
+        <p><?php echo $customer->address; ?></p>
     </div>
     <div class="footBtn">
         <a href="index.php" class="btn btn-warning"><i class="glyphicon glyphicon-menu-left"></i> Continue Shopping</a>
