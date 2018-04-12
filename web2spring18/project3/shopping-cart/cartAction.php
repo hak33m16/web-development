@@ -34,8 +34,13 @@ if ( isset($_GET['action']) && !empty($_GET['action']) ) {
         $cart->insert( $product );
         
         // Show user the changes to their cart
-        //header("Location: viewCart.php");
-    }
+        header("Location: viewCart.php");
+    } else if ( $_GET['action'] == 'removeCartItem' && !empty( $_GET['id'] ) ) {
+		
+		$cart->remove_product_by_id( $_GET['id'] );
+		header("Location: viewCart.php");
+		
+	}
     
 }
 

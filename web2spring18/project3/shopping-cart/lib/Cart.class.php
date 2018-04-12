@@ -39,6 +39,10 @@ class Cart {
 		
 	}
 	
+	public function save_contents() {
+		$_SESSION['cart_contents'] = $this->contents;
+	}
+	
 	public function contents() {
 		$cart = array_reverse( $this->contents );
 		return $cart;
@@ -54,17 +58,38 @@ class Cart {
 		return $itemcount;
 	}
 	
+	/*public function total_per_product($productid) {
+		
+		$total = 0.00;
+		foreach ( $this->contents as $order_item ) {
+			
+		}
+		
+		return $total;
+	}*/
+	
 	public function total_price() {
 		
 		$total = 0.00;
 		foreach ( $this->contents as $order_item ) {
 			$current_product = Products::findByKey( $order_item->product_id );
-			$total += $current_product->price;
+			$total += $current_product->price * $order_item->quantity;
 		}
 		
 		return $total;
 	}
     
+	public function remove_product_by_id( $id ) {
+		
+		for ( $i = 0; $i < count( $this->contents ); ++ $i ) {
+			if ( $this->contents[$i]->product_id == $id ) {
+				unset($this->contents[$i]);
+				$this->save_contents();
+			}
+		}
+		
+	}
+	
 	public function insert($product) {
         
         $new_item = true;
@@ -90,7 +115,8 @@ class Cart {
         }
         
         print_r( $this->contents );
-        
+        $_SESSION['cart_contents'] = $this->contents;
+		
     }
 	
 }
