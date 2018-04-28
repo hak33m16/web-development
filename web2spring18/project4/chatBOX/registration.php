@@ -16,6 +16,67 @@
 </head>
 <body>
 
+<?php
+
+function display_error($text) {
+	echo "<div class='alert alert-danger'>" . $text . "</div>";
+}
+
+// Validate registration information on server.
+if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+	
+	$errors = false;
+	
+	$username = null;
+	$password = null;
+	$fullname = null;
+	$agreebox = null;
+	if (!empty($_POST['reg_username']) && !empty($_POST['reg_password']) && !empty($_POST['reg_password_confirm'])
+		&& !empty($_POST['reg_fullname']) && !empty($_POST['reg_agree']) )
+	{
+	
+		if ( $_POST['reg_password'] != $_POST['reg_password_confirm'] ) {
+			display_error("Password fields do not match.");
+			$errors = true;
+		}
+		if ( $_POST['reg_agree'] == false ) {
+			display_error("Did not agree to the terms.");
+			$errors = true;
+		}
+		if ( strlen($_POST['reg_username']) < 3 ) {
+			display_error("E-mail not long enough.");
+			$errors = true;
+		}
+		if ( strlen($_POST['reg_password']) < 8 ) {
+			display_error("Password not long enough.");
+			$errors = true;
+		}
+		if ( strlen($_POST['reg_fullname']) < 3 ) {
+			display_error("Name not long enough.");
+			$errors = true;
+		}
+		
+		if ( !$errors ) {
+		
+			$username = $_POST['reg_username'];
+			$password = $_POST['reg_password'];
+			$fullname = $_POST['reg_fullname'];
+			
+			header('Location: login.php?registration=success');
+			
+		}
+	
+	} else {
+		//echo "<div class='alert alert-danger'>Not all fields filled out.</div>";
+		display_error("Not all fields filled out.");
+		$errors = true;
+	}
+	
+}
+
+
+?>
+
 <!-- Where all the magic happens -->
 <!-- REGISTRATION FORM -->
 <div class="text-center" style="padding:50px 0">
@@ -24,7 +85,7 @@
 	
         <div class="logo">register</div>
 		
-		<form id="register-form" class="text-left">
+		<form id="register-form" class="text-left" method="POST">
 			<div class="login-form-main-message"></div>
 			
 			<div class="main-login-form">
@@ -41,16 +102,16 @@
 								required>
 					</div>
 					<div class="form-group">
-						<label for="reg_password" class="sr-only">Password (3 - 30 char)</label>
-						<input type="password" class="form-control" id="reg_password" name="reg_password" placeholder="password (3 - 30 char)"
-								data-rule-minlength="3"
+						<label for="reg_password" class="sr-only">Password (8 - 30 char)</label>
+						<input type="password" class="form-control" id="reg_password" name="reg_password" placeholder="password (8 - 30 char)"
+								data-rule-minlength="8"
 								data-rule-maxlength="30"
 								required>
 					</div>
 					<div class="form-group">
 						<label for="reg_password_confirm" class="sr-only">Password Confirm</label>
 						<input type="password" class="form-control" id="reg_password_confirm" name="reg_password_confirm" placeholder="confirm password"
-								data-rule-minlength="3"
+								data-rule-minlength="8"
 								data-rule-maxlength="30"
 								required>
 					</div>
@@ -72,7 +133,7 @@
 			</div>
 			
 			<div class="etc-login-form">
-				<p>already have an account? <a href="login.html">login here</a></p>
+				<p>already have an account? <a href="login.php">login here</a></p>
 			</div>
 		</form>
 		

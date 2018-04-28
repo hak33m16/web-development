@@ -17,6 +17,22 @@
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 </head>
+
+<script>
+function scrollToNewMessage() {
+	var mainMessagingBox = document.getElementById("message-container");
+	var messages = mainMessagingBox.children;
+	
+	var lastMessage = messages[messages.length - 1];
+	var newPos = lastMessage.offsetTop;
+	mainMessagingBox.scrollTop = newPos;
+}
+
+window.onload = function () {
+	scrollToNewMessage();
+}
+</script>
+
 <body>
 <div class="container-fluid">
 
@@ -41,12 +57,12 @@
 	
 		<div id="message-container" class="container-fluid message-area-index" style="">
 			<?php
-			for ($i = 0; $i < 100; ++ $i) {
+			for ($i = 0; $i < 30; ++ $i) {
 			?>
 			
 			<div class="container-fluid individual-message-box">
-				<p class="individual-name">@User: </p>
-				<p class="individual-message">Message</p>
+				<p class="individual-name">@Username </p>
+				<p class="individual-message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
 			</div>
 			
 			<?php

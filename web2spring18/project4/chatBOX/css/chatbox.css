@@ -363,7 +363,12 @@ input[type="file"] {
 }
 
 .individual-message {
-	display: inline;
+	//display: inline;
+	word-wrap: break-word;
+	border-color: rgb(241,241,241);
+	border-radius: 5px;
+	border-style: solid;
+	background-color: rgb(241,241,241);
 }
 
 .individual-message-box {

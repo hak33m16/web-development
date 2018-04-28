@@ -35,8 +35,8 @@
                 <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
             </div>
             <div class="etc-login-form">
-                <p>already have an account? <a href="login.html">login here</a></p>
-                <p>new user? <a href="registration.html">create new account</a></p>
+                <p>already have an account? <a href="login.php">login here</a></p>
+                <p>new user? <a href="registration.php">create new account</a></p>
             </div>
         </form>
     </div>

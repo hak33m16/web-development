@@ -14,6 +14,20 @@
 </head>
 <body>
 
+<?php
+
+function display_success($text) {
+	echo "<div class='alert alert-success'>" . $text . "</div>";
+}
+
+if ( !empty($_GET['registration']) ) {
+	if ( $_GET['registration'] == "success" ) {
+		display_success("Your account has been created. Please login below.");
+	}
+}
+
+?>
+
 <!-- Where all the magic happens -->
 <!-- LOGIN FORM -->
 <div class="text-center">
@@ -32,16 +46,16 @@
 						<label for="lg_password" class="sr-only">Password</label>
 						<input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="password">
 					</div>
-					<div class="form-group login-group-checkbox">
+					<!--<div class="form-group login-group-checkbox">
 						<input type="checkbox" id="lg_remember" name="lg_remember">
 						<label for="lg_remember">remember</label>
-					</div>
+					</div>-->
 				</div>
 				<button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
 			</div>
 			<div class="etc-login-form">
-				<p>forgot your password? <a href="forgot_password.html">click here</a></p>
-				<p>new user? <a href="registration.html">create new account</a></p>
+				<p>forgot your password? <a href="forgot_password.php">click here</a></p>
+				<p>new user? <a href="registration.php">create new account</a></p>
 			</div>
 		</form>
 	</div>
