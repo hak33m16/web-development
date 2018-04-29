@@ -16,13 +16,66 @@
 
 <?php
 
+// This is where we want to begin the session
+session_start();
+
+if ( !empty($_SESSION['user']) ) {
+	header("Location: groups.php");
+}
+
+////////////////////////////////////////
+//
+// Basic functions required for page.
+//
+
 function display_success($text) {
 	echo "<div class='alert alert-success'>" . $text . "</div>";
+}
+
+function display_error($text) {
+	echo "<div class='alert alert-danger'>" . $text . "</div>";
 }
 
 if ( !empty($_GET['registration']) ) {
 	if ( $_GET['registration'] == "success" ) {
 		display_success("Your account has been created. Please login below.");
+	}
+}
+
+///////////////////////////////////////
+//
+// Connection to database required
+// for validation of credentials.
+//
+
+include('includes/db-config.php');
+
+$PDODBAdapter = DatabaseAdapterFactory::getInstance( 'PDO', array(DBCONNECTION, DBUSER, DBPASS) );
+$domainController = new DomainLevelController($PDODBAdapter);
+
+if ( !empty($_POST['lg_username']) && !empty($_POST['lg_password']) ) {
+	
+	$user = $domainController->findUserBy("email", $_POST['lg_username']);
+	//print_r($user);
+	
+	if ( !empty($user) && $user != null ) {
+		
+		if ( $user->password == md5($_POST['lg_password']) ) {
+			
+			//display_success("Successfully logged in.");
+			
+			$_SESSION['user'] = $user;
+			
+			header("Location: groups.php");
+			
+			
+		} else {
+			display_error("Password entry was incorrect.");
+			echo $user->password . " != " . md5($_POST['lg_password']);
+		}
+		
+	} else {
+		display_error("No user with that email found.");
 	}
 }
 
@@ -34,7 +87,7 @@ if ( !empty($_GET['registration']) ) {
 	<!-- Main Form -->
 	<div class="login-form-1">
     	<div class="logo">login</div>
-		<form id="login-form" class="text-left">
+		<form id="login-form" class="text-left" method="POST">
 			<div class="login-form-main-message"></div>
 			<div class="main-login-form">
 				<div class="login-group">

@@ -65,6 +65,7 @@ class DatabaseAdapterPDO implements DatabaseAdapterInterface
             }
         } else {
             // Execute a normal query     
+			//print_r($sql);
             $this->lastStatement = $this->pdo->query($sql); 
             if (!$this->lastStatement) {
                 throw new PDOException;

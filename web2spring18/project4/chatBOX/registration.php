@@ -18,6 +18,11 @@
 
 <?php
 
+include('includes/db-config.php');
+
+$PDODBAdapter = DatabaseAdapterFactory::getInstance( 'PDO', array(DBCONNECTION, DBUSER, DBPASS) );
+$domainController = new DomainLevelController($PDODBAdapter);
+
 function display_error($text) {
 	echo "<div class='alert alert-danger'>" . $text . "</div>";
 }
@@ -31,6 +36,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 	$password = null;
 	$fullname = null;
 	$agreebox = null;
+	
 	if (!empty($_POST['reg_username']) && !empty($_POST['reg_password']) && !empty($_POST['reg_password_confirm'])
 		&& !empty($_POST['reg_fullname']) && !empty($_POST['reg_agree']) )
 	{
@@ -56,11 +62,37 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 			$errors = true;
 		}
 		
+		///////////////////////////////////////
+		//
+		// Start verifying that the account
+		// can be added to the database now.
+		//
+		
+		$users = $domainController->findAllUsers();
+		foreach ( $users as $user ) {
+			if ( $user->email == $_POST['reg_username'] ) {
+				display_error("A user with that username (e-mail) already exists.");
+				$errors = true;
+			}
+		}
+		
+		// Here's where we'll use our gateway to put them into the database
 		if ( !$errors ) {
 		
 			$username = $_POST['reg_username'];
 			$password = $_POST['reg_password'];
 			$fullname = $_POST['reg_fullname'];
+			
+			$userArray = array(
+				"id" => 0,
+				"email" => $username,
+				"password" => md5($password),
+				"name" => $fullname
+			);
+
+			$newUser = new User($userArray, false);
+			$domainController->addUser( $newUser );
+
 			
 			header('Location: login.php?registration=success');
 			

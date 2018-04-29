@@ -18,6 +18,10 @@ abstract class DomainObject
    // to an unknown field/property happens
    protected $generateException = true;
 
+   
+   public function getFieldValues() {
+	   return $this->fieldValues;
+   }
    /**
      * Class constructor
    */

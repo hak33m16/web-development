@@ -140,6 +140,7 @@ abstract class TableDataGateway
    */   
    protected function convertRecordsToObjects($results) 
    {
+	  //print_r($results);
       $className = $this->getDomainObjectClassName();
       $rows = Array();
       foreach ($results as $row)
