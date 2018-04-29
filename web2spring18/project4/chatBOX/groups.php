@@ -77,6 +77,8 @@ if (!empty( $_GET['newgroup'] )) {
 		
 		display_success("Your new group: '" . $_GET['newgroup'] . "' was created successfully.");
 		unset($_GET['newgroup']);
+		
+		$groups = $domainController->findAllGroups();
 	}
 	
 }
@@ -85,7 +87,8 @@ session_start();
 if (!empty( $_SESSION['user'] )) {
 	$user = $_SESSION['user'];
 } else {
-	display_error("No user logged in.");
+	//display_error("No user logged in.");
+	header("Location: login.php");
 }
 
 ?>
@@ -139,7 +142,7 @@ if (!empty( $_SESSION['user'] )) {
 								<div class="container">
 									<h4><b>Group Name</b></h4>
 
-									<div id="epochContainer">
+									<div id="groupNameContainer">
 										<input type="text" id="groupName" style="">
 									</div>
 

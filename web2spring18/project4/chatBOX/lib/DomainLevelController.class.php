@@ -26,6 +26,7 @@ class DomainLevelController {
 		
 		$this->userGateway = new UsersTableGateway($this->PDODBConnection);
 		$this->groupGateway = new GroupsTableGateway($this->PDODBConnection);
+		$this->groupMessageGateway = new GroupMessagesTableGateway($this->PDODBConnection);
 	}
 	
 	//////////////////////////////////////
@@ -62,11 +63,35 @@ class DomainLevelController {
 		return $this->groupsCollection;
 	}
 	
+	public function findGroupById($groupid) {
+		return $this->groupGateway->findBy("id=" . $groupid)[0];
+	}
+	
 	public function addGroup($group) {
 		$this->groupGateway->insert($group);
 	}
 	
-	//private $messageCollection = array();
+	//////////////////////////////////////
+	//
+	// GroupMessage management section.
+	//
+	
+	private $groupMessagesCollection = array();
+	private $groupMessageGateway = null;
+	
+	public function findAllMessages() {
+		$this->groupMessagesCollection = $this->groupMessageGateway->findAll();
+		return $this->groupMessagesCollection;
+	}
+	
+	public function findRecentMessagesByGroupId($groupid) {
+		$this->groupMessagesCollection = $this->groupMessageGateway->findBy("groupid=" . $groupid . " LIMIT 100 ");
+		return $this->groupMessagesCollection;
+	}
+	
+	public function addMessage($groupMessage) {
+		$this->groupMessageGateway->insert($groupMessage);
+	}
 	
 	/*public $ordersCollection = null;
 	public $productsCollection = null;

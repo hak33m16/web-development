@@ -16,22 +16,66 @@
 	<!-- jQuery UI -->
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	
+	<script src="js/index-utilities.js"></script>
+
 </head>
 
-<script>
-function scrollToNewMessage() {
-	var mainMessagingBox = document.getElementById("message-container");
-	var messages = mainMessagingBox.children;
-	
-	var lastMessage = messages[messages.length - 1];
-	var newPos = lastMessage.offsetTop;
-	mainMessagingBox.scrollTop = newPos;
+<?php
+
+////////////////////////////////////////
+//
+// Database connection and management.
+//
+
+include('includes/db-config.php');
+
+$PDODBAdapter = DatabaseAdapterFactory::getInstance( 'PDO', array(DBCONNECTION, DBUSER, DBPASS) );
+$domainController = new DomainLevelController($PDODBAdapter);
+
+////////////////////////////////////////
+//
+// Basic functions required for page.
+//
+
+function display_success($text) {
+	echo "<div class='alert alert-success'>" . $text . "</div>";
 }
 
-window.onload = function () {
-	scrollToNewMessage();
+function display_error($text) {
+	echo "<div class='alert alert-danger'>" . $text . "</div>";
 }
-</script>
+
+////////////////////////////////////////
+//
+// Session verification.
+//
+
+$user = null;
+$group = null;
+
+session_start();
+if ( !empty($_SESSION['user']) ) {
+	
+	$user = $_SESSION['user'];
+	
+	if ( !empty($_GET['groupid']) ) {
+		
+		$group = $domainController->findGroupById($_GET['groupid']);
+		if ( $group == null ) {
+			header("Location: groups.php");
+		}
+		
+	} else {
+		header("Location: groups.php");
+	}
+	
+} else {
+	// Redirect back to login
+	header("Location: login.php");
+}
+
+?>
 
 <body>
 <div class="container-fluid">
@@ -42,7 +86,7 @@ window.onload = function () {
 		<h2>ChatBOX</h2>
 		
 		<div class="row">
-			<p class="display-name-p">You are: @placeholder</p>&nbsp;&nbsp;&nbsp;&nbsp;<p class="display-name-p">[Group: @placeholder]</p>
+			<p class="display-name-p">You are: <a href="#">@<?=$user->name?></a></p>&nbsp;&nbsp;&nbsp;&nbsp;<p class="display-name-p">[Group: <a href="groups.php">@<?=$group->name?></a>]</p>
 		</div>
 	
 	</div>

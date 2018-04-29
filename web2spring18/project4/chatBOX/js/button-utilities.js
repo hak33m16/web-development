@@ -1,9 +1,9 @@
 window.onload = function() {
 $(function () {
 	$("#createNewGroupButton").click(function () {
-		var name = document.getElementById("groupNameContainer").innerHTML;
+		var name = $("#groupName").val();
 		window.location.replace("groups.php?newgroup=" + name);
-		alert("groups.php?newgroup=" + name);
+		//alert("groups.php?newgroup=" + name);
 	});
 });
 }
