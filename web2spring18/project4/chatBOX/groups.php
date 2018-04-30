@@ -18,6 +18,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	
 	<script src="js/button-utilities.js"></script>
+    <script src="js/background-changer.js"></script>
 </head>
 
 <?php
