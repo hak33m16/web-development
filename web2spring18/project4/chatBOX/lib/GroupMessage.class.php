@@ -19,7 +19,7 @@ class GroupMessage extends DomainObject
 	static function getFieldNames() {
 		return array('groupid', 'ownerid', 'message', 'time');
 	}
-
+    
 	public function __construct(array $data, $generateExc)
 	{
 		parent::__construct($data, $generateExc);

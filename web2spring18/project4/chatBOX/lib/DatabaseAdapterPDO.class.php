@@ -59,7 +59,9 @@ class DatabaseAdapterPDO implements DatabaseAdapterInterface
         if (count($parameters) > 0) {
             // Use a prepared statement if parameters 
             $this->lastStatement = $this->pdo->prepare($sql);
+
             $executedOk = $this->lastStatement->execute($parameters);
+
             if (! $executedOk) {
                 throw new PDOException;
             }
@@ -67,6 +69,7 @@ class DatabaseAdapterPDO implements DatabaseAdapterInterface
             // Execute a normal query     
 			//print_r($sql);
             $this->lastStatement = $this->pdo->query($sql); 
+
             if (!$this->lastStatement) {
                 throw new PDOException;
             }
@@ -127,6 +130,7 @@ class DatabaseAdapterPDO implements DatabaseAdapterInterface
     public function fetchAsArray($sql, $parameters=array())
     {
         $statement = $this->runQuery($sql, $parameters);
+        //print_r($statement);
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -149,6 +153,7 @@ class DatabaseAdapterPDO implements DatabaseAdapterInterface
         // Construct SQL and execute
         $escapedTableName = $this->backtickIdentifier($tableName);
         $sql = sprintf("INSERT INTO %s (%s) VALUES (%s)", $escapedTableName, implode(', ', $fields), implode(', ', $values));
+        //echo $sql;
         return $this->runQuery($sql, array_values($parameters));
     }
 
@@ -171,6 +176,7 @@ class DatabaseAdapterPDO implements DatabaseAdapterInterface
      */
     public function update($tableName, $updateParameters=array(), $whereCondition='', $whereParameters=array())
     {
+        //print_r($updateParameters);
         // Determine field assignments
         $assignments = array();
         $parameters = array();
@@ -183,8 +189,9 @@ class DatabaseAdapterPDO implements DatabaseAdapterInterface
         $escapedTableName = $tableName;
         $sql = sprintf("UPDATE %s SET %s", $escapedTableName, implode(', ', $assignments));
         if ($whereCondition) {
-            $sql .= " WHERE $whereCondition ";
-            $parameters = array_merge($parameters, $whereParameters);
+            $sql .= " WHERE " . $whereCondition . " ";
+            //$sql .= " WHERE $whereCondition ";
+            //$parameters = array_merge($parameters, $whereParameters);
         }
         
         $statement = $this->runQuery($sql, $parameters);

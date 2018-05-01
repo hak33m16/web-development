@@ -17,9 +17,23 @@
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	
-	<script src="js/index-utilities.js"></script>
     <script src="js/background-changer.js"></script>
+    
+    <script src="js/ajax-db-utility.js"></script>
 </head>
+
+<!-- Invoke the utilities AFTER we've declared our chat object. -->
+<script src="js/index-utilities.js"></script>
+
+<script>
+    var chat = new Chat();
+    window.onload = function() {
+        chat.getChatState();
+        setInterval(function() {
+            chat.getChatState();
+        }, 1000);
+    }
+</script>
 
 <?php
 
@@ -79,7 +93,7 @@ if ( !empty($_SESSION['user']) ) {
 
 <body>
 <div class="container-fluid">
-
+<a href="login.php?logout=logout"<button type="button" class="btn btn-primary">Logout</button></a>
     <div class="row text-center">
         <div class="chatbox-main-style">
 
@@ -95,14 +109,14 @@ if ( !empty($_SESSION['user']) ) {
 
     <div class="row">
             
-        <div class="col-md-3">
+        <div id="auto-box" class="col-md-3" style="">
         </div>
         
         <div class="col-md-6">
         
-            <div id="message-container" class="container-fluid message-area-index" style="">
-                <?php
-                for ($i = 0; $i < 30; ++ $i) {
+            <div id="message-container" class="container-fluid message-area-index">
+                <!--<?php
+                //for ($i = 0; $i < 30; ++ $i) {
                 ?>
                 
                 <div class="container-fluid individual-message-box">
@@ -111,8 +125,8 @@ if ( !empty($_SESSION['user']) ) {
                 </div>
                 
                 <?php
-                }
-                ?>
+                //}
+                ?>-->
             </div>
 
         </div>
@@ -126,21 +140,21 @@ if ( !empty($_SESSION['user']) ) {
         <div class="col-md-3">
         </div>
         
-        <div class="col-md-6">
-            <form id="send-message-area">
-                <textarea class="textarea-index form-control" maxlength = '100'></textarea>
-                <div class="pull-right" style="">
+        <div class="col-md-6 ui-widget">
+            <!--<form id="send-message-area">-->
+                <textarea  id="actual-text-box" class="textarea-index form-control" maxlength='300'></textarea>
+                <!--<div class="pull-right" style="">
                 
-                    <input class="chatbox-send-button" type="submit" value="Send">
+                    <!--<input class="chatbox-send-button" type="submit" value="Send">-->
                     
                     <!--<label for="file-upload" class="custom-file-upload">
                         <span id="file-label" class="glyphicon glyphicon-paperclip"></span>
                     </label>-->
-                </div>
+                <!--</div>
                 
                 <input id="file-upload" class="" type="file" value="Attach">
                 
-            </form>
+            </form>-->
         </div>
         
         <div class="col-md-3">

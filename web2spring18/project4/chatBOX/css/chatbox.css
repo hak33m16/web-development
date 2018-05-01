@@ -308,7 +308,7 @@ label:hover:before {
 	resize: none;
 	display: inline;
 	height: 50%;
-	width: 90%;
+	width: 100%;
 	margin-right: none !important;
 	padding-right: none !important;
 }
@@ -360,6 +360,13 @@ input[type="file"] {
 
 .individual-name {
 	display: inline;
+}
+
+.individual-time {
+	display: inline;
+    background-color: lightblue;
+    border: 1px solid lightgray;
+    border-radius: 5px;
 }
 
 .individual-message {

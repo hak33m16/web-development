@@ -49,6 +49,12 @@ class DomainLevelController {
 	public function findUserBy($key, $value) {
 		return $this->userGateway->findBy($key . "='" . $value . "'")[0];
 	}
+    
+    //update($tableName, $updateParameters=array(), $whereCondition='', $whereParameters=array())
+    public function updateUser($email, $password) {
+        //str_replace('@', '\@', $email);
+        $this->PDODBConnection->update('users', array('password' => md5($password)), 'email="' . $email . '"');
+    }
 	
 	//////////////////////////////////////
 	//
@@ -84,28 +90,18 @@ class DomainLevelController {
 		return $this->groupMessagesCollection;
 	}
 	
+    public function findAllMessagesArray($groupid) {
+        return $this->PDODBConnection->fetchAsArray("SELECT groupmessages.*,email,name FROM groupmessages INNER JOIN users ON users.id=groupmessages.ownerid WHERE groupid=" . $groupid . " ORDER BY time");
+    }
+    
 	public function findRecentMessagesByGroupId($groupid) {
-		$this->groupMessagesCollection = $this->groupMessageGateway->findBy("groupid=" . $groupid . " LIMIT 100 ");
+		$this->groupMessagesCollection = $this->groupMessageGateway->findBy("groupid=" . $groupid . " ORDER BY time DESC ");
 		return $this->groupMessagesCollection;
 	}
 	
 	public function addMessage($groupMessage) {
 		$this->groupMessageGateway->insert($groupMessage);
 	}
-	
-	/*public $ordersCollection = null;
-	public $productsCollection = null;
-	public $customersCollection = null;
-	public $orderItemsCollection = null;
-	
-	public function __construct($PDOConnection) {
-		
-		$this->ordersCollection = OrdersCollection::findAll();
-		$this->productsCollection = ProductsCollection::findAll();
-		$this->customersCollection = CustomersCollection::findAll();
-		$this->orderItemsCollection = OrderItemsCollection::findAll();
-		
-	}*/
 	
 }
 

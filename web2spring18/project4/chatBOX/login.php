@@ -48,6 +48,14 @@ if ( !empty($_GET['registration']) ) {
 	}
 }
 
+if ( !empty($_GET['logout']) ) {
+    if ( $_GET['logout'] == "logout" ) {
+        session_destroy();
+    } else {
+        display_success("You have been successfully logged out.");
+    }
+}
+
 ///////////////////////////////////////
 //
 // Connection to database required
@@ -77,7 +85,7 @@ if ( !empty($_POST['lg_username']) && !empty($_POST['lg_password']) ) {
 			
 		} else {
 			display_error("Password entry was incorrect.");
-			echo $user->password . " != " . md5($_POST['lg_password']);
+			//echo $user->password . " != " . md5($_POST['lg_password']);
 		}
 		
 	} else {

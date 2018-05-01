@@ -19,6 +19,10 @@ abstract class DomainObject
    protected $generateException = true;
 
    
+    public function expose() {
+        return get_object_vars($this);
+    }
+   
    public function getFieldValues() {
 	   return $this->fieldValues;
    }
